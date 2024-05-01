@@ -7,6 +7,7 @@ import { ScrollView } from 'react-native';
 // import QuestionsComponent from '../(components)/QuestionsComponent';
 import { Button } from 'react-native-paper';
 import QuestionsComponent from '../(components)/QuestionsComponent';
+import CountDown from 'react-native-countdown-component';
 
 const index = () => {
   const navigation = useNavigation();
@@ -18,13 +19,29 @@ const index = () => {
     <SafeAreaView>
       <Box
         w={'full'}
-        p={7}
+        pt={10}
+        pb={2}
         position={'absolute'}
         left={0}
         top={0}
         zIndex={50}
-        bgColor={'pink.400'}
-      ></Box>
+        bgColor={'#F19A1A'}
+      >
+        <CountDown
+          size={20}
+          until={10}
+          onFinish={() => alert('Finished')}
+          digitStyle={{
+            backgroundColor: '#FFF',
+          }}
+          digitTxtStyle={{ color: '#F19A1A' }}
+          timeLabelStyle={{ color: 'red', fontWeight: 'bold' }}
+          separatorStyle={{ color: '#F19A1A' }}
+          timeToShow={['H', 'M', 'S']}
+          timeLabels={{ m: '', s: '' }} // Provide valid values for the timeLabels prop
+          showSeparator
+        />
+      </Box>
       <ScrollView
         style={{
           marginTop: 50,
@@ -34,7 +51,7 @@ const index = () => {
           const { options } = question;
           return (
             <Box key={i} bgColor={'#F19A1A'}>
-              <Heading p={3} size={'xl'} color={'white'}>
+              <Heading p={4} size={'xl'} color={'white'}>
                 Q{i + 1}
               </Heading>
               <Box p={3} backgroundColor={'white'}>
