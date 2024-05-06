@@ -1,3 +1,9 @@
+export type DataModulesTyped = {
+  id: number;
+  name: string;
+  href: string;
+};
+
 export type QuizzesListTyped = {
   name: string;
   date: {

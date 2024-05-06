@@ -9,7 +9,7 @@ interface Question {
   answer: string;
 }
 
-const QuizScreen: React.FC = () => {
+const QuizScreen = () => {
   // Sample questions data
   const sampleQuestions: Question[] = [
     {

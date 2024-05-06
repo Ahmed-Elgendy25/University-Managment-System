@@ -66,7 +66,13 @@ const _layout = () => {
         />
 
         <Stack.Screen name="MessageScreen/index" />
-
+        <Stack.Screen
+          name="Feedback/index"
+          options={{
+            headerTitle: 'Feedback',
+            headerStyle: { backgroundColor: '#F19A1A' },
+          }}
+        />
         <Stack.Screen
           name="(tabs)"
           options={{
