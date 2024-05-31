@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Text } from 'react-native-paper';
 import QuestionsComponent from '../(components)/QuestionsComponent'; // Assuming the correct path to QuestionsScreen
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 
 interface Question {
   question: string;
@@ -32,14 +33,19 @@ const QuizScreen = () => {
       options: ['H2O', 'CO2', 'NaCl', 'O2'],
       answer: 'H2O',
     },
-    // Add more questions here...
   ];
 
-  // State variables
   const [totalDuration, setTotalDuration] = useState<number>(10); // Default duration of 10 minutes
   const [timeLeft, setTimeLeft] = useState<number>(totalDuration * 60); // Time left in seconds
   const [score, setScore] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const navigation = useNavigation();
+
+  const params = useLocalSearchParams<{ name: string }>();
+  const { name } = params;
+  useEffect(() => {
+    navigation.setOptions({ title: name });
+  }, [name]);
 
   return (
     <View style={styles.container}>

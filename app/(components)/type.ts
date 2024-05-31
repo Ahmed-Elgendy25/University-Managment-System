@@ -6,19 +6,35 @@ export type DataModulesTyped = {
 
 export type QuizzesListTyped = {
   name: string;
-  date: {
-    startDate: Date;
-    startTime: Date;
-    endDate: Date;
-    endTime: Date;
-  };
+  startDate: string;
+  startTime: string;
   quizGrade: number;
 };
+type QuestionType = 'multiple-choice' | 'true-false';
 
 export type QuestionsMcqTyped = {
+  type: QuestionType;
   question: string;
-  options: string[];
-  answer: string;
+  imageLink?: string;
+  points: number;
+  duration: number;
+  id: number;
+  options: {
+    id: string;
+    values: {
+      id: number;
+      text: string;
+      isCorrect: boolean;
+    }[];
+  };
 };
 
-export type OptionsTyped = string[];
+export type quizDetailsTyped = {
+  desc?: string | null;
+  startDate: string;
+  endDate: string;
+  instructorName: string;
+  totalDuration: number;
+  totalScore: number;
+  totalQuestions: number;
+};

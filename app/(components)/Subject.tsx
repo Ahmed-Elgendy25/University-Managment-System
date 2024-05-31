@@ -18,7 +18,7 @@ const Subject = ({ color, courseName }: PropsWithChildren<ItemProps>) => {
       <Link
         push
         href={{
-          pathname: '/subjectDetails',
+          pathname: '/subjectDetails/',
           params: { courseName: courseName },
         }}
       >

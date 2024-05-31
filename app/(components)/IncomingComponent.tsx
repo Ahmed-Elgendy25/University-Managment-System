@@ -5,7 +5,7 @@ import { Link } from 'expo-router';
 import { Pressable, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const QuizzesList = () => {
+const IncomingComponent = () => {
   return (
     <>
       {quizzList.map((quiz) => {
@@ -17,6 +17,7 @@ const QuizzesList = () => {
               pathname: '/QuizDetails/',
               params: { name: quiz.name },
             }}
+            disabled={true}
             asChild
           >
             <Pressable>
@@ -27,7 +28,7 @@ const QuizzesList = () => {
                     h={'32'}
                     w={'3/4'}
                     rounded={'3xl'}
-                    bgColor={'#F19A1A'}
+                    bgColor={'#d68a18a0'}
                   >
                     <Flex
                       justifyContent={'space-between'}
@@ -67,53 +68,4 @@ const QuizzesList = () => {
   );
 };
 
-export default QuizzesList;
-
-// import React from 'react';
-// import { quizzList } from './quiz-list';
-// import { Box, Flex, VStack, Text } from 'native-base';
-// import { Link } from 'expo-router';
-
-// const QuizzesList = () => {
-//   return (
-//     <>
-//       {quizzList.map((quiz) => {
-//         return (
-//           <Link key={quiz.name} push href="/QuizDetails">
-//             <VStack
-//               bgColor={'warmGray.500'}
-//               borderBottomWidth={'1'}
-//               borderBottomColor={'#2c2c2c59'}
-//               py={'25px'}
-//               px={'15px'}
-//             >
-//               <Flex direction="row" justifyContent={'space-between'}>
-//                 <Box>
-//                   <Text
-//                     color={'black'}
-//                     fontWeight={'extrabold'}
-//                     fontSize={'2xl'}
-//                   >
-//                     {quiz.name}
-//                   </Text>
-//                 </Box>
-
-//                 <Box>
-//                   <Text
-//                     color={'black'}
-//                     fontWeight={'extrabold'}
-//                     fontSize={'2xl'}
-//                   >
-//                     {quiz.name}
-//                   </Text>
-//                 </Box>
-//               </Flex>
-//             </VStack>
-//           </Link>
-//         );
-//       })}
-//     </>
-//   );
-// };
-
-// export default QuizzesList;
+export default IncomingComponent;

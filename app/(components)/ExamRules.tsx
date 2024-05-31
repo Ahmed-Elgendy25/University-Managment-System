@@ -20,10 +20,6 @@ const DATA: ItemData[] = [
     title:
       'Cheating is not allowed, If you tried to use google or any other application during the exam, You will recieve only ONE WARNING then you will be banned from session! ',
   },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: '1 mark awarded for BOTH a correct/wrong answer.',
-  },
 ];
 
 type ItemProps = { title: string };
@@ -74,7 +70,7 @@ const ExamRules = () => {
         }}
       >
         <Text color={'white'} fontWeight={'bold'} fontSize={'lg'}>
-          Start Test
+          Enroll
         </Text>
       </Link>
     </Box>
