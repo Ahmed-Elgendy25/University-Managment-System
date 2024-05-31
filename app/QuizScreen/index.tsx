@@ -29,13 +29,6 @@ const index = () => {
       </Flex>
 
       <QuizzesList />
-      <QuizzesList />
-      <QuizzesList />
-      <QuizzesList />
-      <QuizzesList />
-      <QuizzesList />
-      <QuizzesList />
-      <QuizzesList />
     </ScrollView>
   );
 };

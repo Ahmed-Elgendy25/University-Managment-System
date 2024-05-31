@@ -51,6 +51,22 @@ const _layout = () => {
         />
 
         <Stack.Screen
+          name="Attendance/AttendanceDetails/index"
+          options={{
+            headerTitle: 'Atttendance Details',
+            headerStyle: { backgroundColor: '#F19A1A' },
+          }}
+        />
+
+        <Stack.Screen
+          name="Attendance/index"
+          options={{
+            headerTitle: 'Attendance',
+            headerStyle: { backgroundColor: '#F19A1A' },
+          }}
+        />
+
+        <Stack.Screen
           name="subjectDetails/index"
           options={{
             headerStyle: { backgroundColor: '#F19A1A' },
