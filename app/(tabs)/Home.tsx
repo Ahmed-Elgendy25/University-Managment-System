@@ -1,13 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { VStack } from 'native-base';
+import { Box, VStack } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
 import Subject from '../(components)/Subject';
+import { Button } from 'react-native-paper';
+import NetInfo from '@react-native-community/netinfo';
 
-const Home: React.FC = () => {
-  const onPressHandler = () => {
-    console.log('Pressed');
-  };
+import getCachedLocation from '@/API/getCachedLocation';
+
+const Home = () => {
+  let [isDisabled, setIsDisabled] = useState<boolean>(true);
+  let [isConnected, setIsConnected] = useState<boolean | null>(null);
+  const [cachedLocation, setCachedLocation] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(state.isConnected);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // Offline - Retrieve cached data
+      if (isConnected) {
+        const cachedLocationData = await getCachedLocation();
+        setCachedLocation(cachedLocationData);
+      }
+    };
+
+    fetchData();
+  }, [isConnected]);
 
   return (
     <View style={styles.container}>
@@ -25,10 +51,22 @@ const Home: React.FC = () => {
             Mohamed
           </Text>
         </View>
-        <Pressable onPress={onPressHandler}>
+        <Pressable>
           <AntDesign name="bells" size={25} color="white" />
         </Pressable>
       </View>
+      <Box my={3}>
+        <Button
+          disabled={isDisabled}
+          buttonColor={'#f72d2d'}
+          textColor="white"
+          mode="elevated"
+          // onPress={handleErgentAttend}
+        >
+          Ergent Attend
+        </Button>
+      </Box>
+
       <View style={styles.middleSection}>
         <ScrollView>
           <VStack space={0} alignItems="center">

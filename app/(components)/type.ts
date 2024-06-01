@@ -38,3 +38,7 @@ export type quizDetailsTyped = {
   totalScore: number;
   totalQuestions: number;
 };
+export type LocationObject = {
+  latitude: number | null;
+  longitude: number | null;
+};

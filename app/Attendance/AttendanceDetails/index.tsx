@@ -1,15 +1,15 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import QuizDetailsComponent from '../../(components)/QuizDetailsComponent';
-import { Box, Button, Flex } from 'native-base';
+import { Box, Button, Flex, ScrollView } from 'native-base';
 import AttendDetailsComponent from '@/app/(components)/AttendDetailsComponent';
 
 const index = () => {
   return (
-    <Box h={'full'}>
+    <ScrollView h={'full'} width={'full'} p={'1'} bgColor={'amber.200'}>
       <AttendDetailsComponent />
-    </Box>
+    </ScrollView>
   );
 };
 
