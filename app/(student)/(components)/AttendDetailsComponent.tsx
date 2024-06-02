@@ -149,8 +149,7 @@ const AttendDetailsComponent = () => {
         <Button
           mode="contained"
           onPress={() => {
-            getLocation();
-            console.log(location);
+            refetch;
           }}
         >
           Take Attend

@@ -6,6 +6,7 @@ import {
   Heading,
   Image,
   Input,
+  Radio,
   ScrollView,
   Text,
   VStack,
@@ -19,7 +20,8 @@ import { Formik } from 'formik';
 import { GestureResponderEvent } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, router } from 'expo-router';
-import Header from './(components)/Header';
+import Header from './(student)/(components)/Header';
+import { RadioButton } from 'react-native-paper';
 
 // const logo = require('../assets/logo.png');
 
@@ -27,16 +29,20 @@ interface FormValues {
   email: string;
   id: number;
   password: string;
-  repassword: string;
+  role: string;
 }
 
-const Signup: React.FunctionComponent = () => {
+const Signin = () => {
   const initialValues: FormValues = {
     email: '',
     id: 0,
     password: '',
-    repassword: '',
+    role: '',
   };
+
+  function handleLogin(role: string) {
+    router.push(`(${role})/Home`);
+  }
 
   return (
     <ScrollView>
@@ -64,35 +70,49 @@ const Signup: React.FunctionComponent = () => {
                       accessibilityLabel="Label for Email"
                     />
                   </Box>
-
                   <Box>
                     <Text ml={'0.9rem'} color={'#999999'}>
                       Password
                     </Text>
                     <Input
-                      onChangeText={handleChange('email')}
-                      onBlur={handleBlur('email')}
-                      value={values.email}
+                      onChangeText={handleChange('password')}
+                      onBlur={handleBlur('password')}
+                      value={values.password}
                       mx="3"
                       placeholder="Password"
                       w="100%"
                       accessibilityLabel="Label for Password"
                     />
                   </Box>
+                  <Flex flexDirection={'row'} width={'full'}>
+                    <RadioButton.Group
+                      onValueChange={handleChange('role')}
+                      value={values.role}
+                    >
+                      <Flex
+                        width={'full'}
+                        justifyContent={'space-between'}
+                        flexDirection={'row'}
+                      >
+                        <RadioButton.Item label="Professor" value="professor" />
+                        <RadioButton.Item label="Student" value="student" />
+                      </Flex>
+                    </RadioButton.Group>
+                  </Flex>
 
                   <Box w={'100%'}>
                     <Button
                       backgroundColor={'#F19A1A'}
                       mt={3}
                       // onPress={(e: GestureResponderEvent) => handleSubmit()}
-                      onPress={() => router.replace('/Home')}
+                      // onPress={() => router.replace('/Home')}
+                      onPress={() => handleLogin(values.role)}
                     >
                       <Text color={'white'} fontSize={'md'} fontWeight={'bold'}>
                         SIGN IN
                       </Text>
                     </Button>
                   </Box>
-
                   <Center>
                     <Text
                       ml={'1rem'}
@@ -125,7 +145,7 @@ const Signup: React.FunctionComponent = () => {
     </ScrollView>
   );
 };
-export default Signup;
+export default Signin;
 
 // const styles = StyleSheet.create({
 //   container: {

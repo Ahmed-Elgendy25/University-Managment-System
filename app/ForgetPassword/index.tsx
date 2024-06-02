@@ -58,7 +58,7 @@ const ForgetPassword: React.FunctionComponent = () => {
                   my={'20px'}
                   w={'100%'}
                   backgroundColor={'#F19A1A'}
-                  onPress={() => router.push('/OTP')}
+                  onPress={() => router.push('/OTP/')}
                 >
                   <Text color={'white'}>Submit</Text>
                 </Button>

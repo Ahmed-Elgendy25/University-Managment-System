@@ -19,8 +19,7 @@ import { Formik } from 'formik';
 // import { Button } from 'react-native';
 import { GestureResponderEvent } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Header from '../(components)/Header';
-
+import Header from '../(student)/(components)/Header';
 interface FormValues {
   email: string;
   id: number;

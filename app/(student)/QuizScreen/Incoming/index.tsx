@@ -2,9 +2,9 @@ import { View, Text } from 'react-native';
 import React, { useEffect } from 'react';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { Flex, ScrollView } from 'native-base';
-import ButtonComponent from '@/app/(components)/ButtonComponent';
-import QuizzesList from '@/app/(components)/QuizzesList';
-import IncomingComponent from '@/app/(components)/IncomingComponent';
+import ButtonComponent from '../../(components)/ButtonComponent';
+import QuizzesList from '../../(components)/QuizzesList';
+import IncomingComponent from '../../(components)/IncomingComponent';
 
 const index = () => {
   const navigation = useNavigation();

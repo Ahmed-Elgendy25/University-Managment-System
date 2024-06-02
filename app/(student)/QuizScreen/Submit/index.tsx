@@ -1,8 +1,7 @@
 import { View, Text } from 'react-native';
 import React, { useEffect } from 'react';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
-import MissedComponent from '@/app/(components)/MissedComponent';
-
+import MissedComponent from '../../(components)/MissedComponent';
 const index = () => {
   const navigation = useNavigation();
   const params = useLocalSearchParams<{ path: string }>();

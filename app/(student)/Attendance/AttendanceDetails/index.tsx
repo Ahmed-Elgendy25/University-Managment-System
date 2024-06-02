@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import QuizDetailsComponent from '../../(components)/QuizDetailsComponent';
 import { Box, Button, Flex, ScrollView } from 'native-base';
-import AttendDetailsComponent from '@/app/(components)/AttendDetailsComponent';
+import AttendDetailsComponent from '../../(components)/AttendDetailsComponent';
 
 const index = () => {
   return (

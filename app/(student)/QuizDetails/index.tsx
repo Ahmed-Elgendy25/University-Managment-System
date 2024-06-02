@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import QuizDetailsComponent from '../(components)/QuizDetailsComponent';
 import ExamRules from '../(components)/ExamRules';
 import { Box, Flex } from 'native-base';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 
 const index = () => {
+  const navigation = useNavigation();
+  const params = useLocalSearchParams<{ name: string }>();
+  const { name } = params;
+  useEffect(() => {
+    navigation.setOptions({ title: name });
+  }, [name]);
   return (
     <ScrollView>
       <SafeAreaView>

@@ -9,7 +9,7 @@ import {
   theme,
 } from 'native-base';
 
-const logo = require('../../assets/logo.png');
+const logo = require('../../../assets/logo.png');
 
 const Header = () => {
   return (

@@ -11,7 +11,7 @@ import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 
 const ProfileScreen = () => {
-  const defaultImage = require('../../assets/profile_img.jpg');
+  const defaultImage = require('../../../assets/profile_img.jpg');
   const [profilePhoto, setProfilePhoto] = useState<any>(defaultImage);
 
   const selectProfilePhoto = async () => {

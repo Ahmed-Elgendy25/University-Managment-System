@@ -30,35 +30,35 @@ const ChatListScreen = () => {
       id: '1',
       name: 'John',
       lastMessage: 'Hey, how are you?',
-      photo: require('../../assets/profile_img.jpg'),
+      photo: require('../../../assets/profile_img.jpg'),
       unreadMessages: 2,
     },
     {
       id: '2',
       name: 'Alice',
       lastMessage: 'What are you doing tonight?',
-      photo: require('../../assets/profile_img.jpg'),
+      photo: require('../../../assets/profile_img.jpg'),
       unreadMessages: 0,
     },
     {
       id: '3',
       name: 'Bob',
       lastMessage: 'Can you help me with this?',
-      photo: require('../../assets/profile_img.jpg'),
+      photo: require('../../../assets/profile_img.jpg'),
       unreadMessages: 5,
     },
     {
       id: '4',
       name: 'Emily',
       lastMessage: 'I miss you!',
-      photo: require('../../assets/profile_img.jpg'),
+      photo: require('../../../assets/profile_img.jpg'),
       unreadMessages: 0,
     },
     {
       id: '5',
       name: 'David',
       lastMessage: "Let's meet up later.",
-      photo: require('../../assets/profile_img.jpg'),
+      photo: require('../../../assets/profile_img.jpg'),
       unreadMessages: 1,
     },
   ]);
@@ -78,7 +78,7 @@ const ChatListScreen = () => {
           style={{ width: '100%', height: '100%' }}
           push
           href={{
-            pathname: '/MessageScreen',
+            pathname: '/MessageScreen/',
             params: { user: item.name },
           }}
         >
