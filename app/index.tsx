@@ -102,6 +102,7 @@ const Signin = () => {
 
                   <Box w={'100%'}>
                     <Button
+                      disabled={values.role ? false : true}
                       backgroundColor={'#F19A1A'}
                       mt={3}
                       // onPress={(e: GestureResponderEvent) => handleSubmit()}

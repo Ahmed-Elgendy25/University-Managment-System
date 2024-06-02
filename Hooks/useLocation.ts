@@ -1,10 +1,14 @@
 import { View, Text } from 'react-native';
 import React, { useState } from 'react';
 import * as Location from 'expo-location';
-import { LocationObject } from '@/app/(components)/type';
+// import { LocationObject } from '@/app/(student)/(components)/type';
 
+interface LocationObjectTyped {
+  latitude: number | null;
+  longitude: number | null;
+}
 const useLocation = () => {
-  const [location, setLocation] = useState<LocationObject>({
+  const [location, setLocation] = useState<LocationObjectTyped>({
     latitude: null,
     longitude: null,
   });

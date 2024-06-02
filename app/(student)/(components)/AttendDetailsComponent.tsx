@@ -10,13 +10,17 @@ import {
   Entypo,
 } from '@expo/vector-icons';
 import { ActivityIndicator, Button } from 'react-native-paper';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Alert, Dimensions, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { LatLng } from 'react-native-maps';
 import { useQuery } from '@tanstack/react-query';
 import { getLocation, getLocationTyped } from '@/API/getLocation';
 import cacheLocation from '@/API/cacheLocation';
 import { LocationObject } from './type';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNetInfo } from '@react-native-community/netinfo';
+import moment from 'moment';
+
 // import useLocation from '@/Hooks/useLocation';
 const MINUTES = 60 * 1000;
 const Details = quizDetails;
@@ -32,18 +36,52 @@ const Details = quizDetails;
 // },
 
 const AttendDetailsComponent = () => {
+  let netinfo = useNetInfo();
+
   const { data, error, refetch, isLoading } = useQuery<getLocationTyped, Error>(
     {
       queryKey: ['location'],
       queryFn: async () => {
         const location = await getLocation();
         const { latitude, longitude } = data?.coords || {};
-        cacheLocation({ latitude, longitude } as LocationObject);
 
         return location as getLocationTyped;
       },
     }
   );
+
+  let checkCachedLocation = async (
+    latitude: number | undefined,
+    longitude: number | undefined
+  ) => {
+    try {
+      if (latitude ?? (undefined && longitude) ?? undefined) {
+        cacheLocation({
+          latitude: latitude ?? 0,
+          longitude: longitude ?? 0,
+          timeStamp: moment().valueOf(),
+        } as LocationObject);
+      }
+
+      const jsonValue = await AsyncStorage.getItem('location');
+
+      if (jsonValue != null && netinfo.isInternetReachable === false) {
+        Alert.alert(
+          'Internet Unreachable',
+          `We see that you are offline. So don't worry, we cached your GPS location at ${moment()
+            .format('h:mm a')
+            .valueOf()}.`
+        );
+      }
+    } catch (err) {
+      Alert.alert(`Error, Can't get the cached location: `, err as string);
+    }
+  };
+
+  if (netinfo.isInternetReachable === false) {
+    checkCachedLocation(data?.coords.latitude, data?.coords.longitude);
+  }
+  //
 
   // const { location, errorMsg, getLocation } = useLocation();
 

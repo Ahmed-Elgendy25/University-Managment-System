@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { Link, useLocalSearchParams, useNavigation } from 'expo-router';
+import Modules from '../(components)/ModulesProfessor';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import StudentModules from '../../(student)/(components)/Mocks/StudentModules';
+import ModulesProfessor from '../(components)/ModulesProfessor';
 
 const index = () => {
   const navigation = useNavigation();
@@ -37,23 +38,12 @@ const index = () => {
               distinctio?
             </Text>
           </View>
-          {/* Administrator Name */}
-          <View style={styles.admin}>
-            {/* <Icon name="user-o" size={20} color="#F8E8EE" style={styles.icon} /> */}
-            <FontAwesome
-              name="user-o"
-              size={20}
-              color="#F8E8EE"
-              style={styles.icon}
-            />
-            <Text style={styles.adminText}>Mohamed Ali</Text>
-          </View>
         </View>
 
         {/* Module Section */}
         <View style={styles.content}>
           <View style={styles.modules}>
-            <StudentModules />
+            <ModulesProfessor />
           </View>
         </View>
       </View>
@@ -75,6 +65,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F19A1A',
     borderBottomEndRadius: 20,
     borderBottomStartRadius: 20,
+    height: '100%',
   },
   courseName: {
     flex: 0.3,

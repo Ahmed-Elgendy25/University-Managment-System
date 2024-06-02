@@ -1,0 +1,80 @@
+import { StudentExamProps } from './professor-types';
+// Students Exam Data
+const Students: StudentExamProps[] = [
+  {
+    id: 1,
+    name: 'Mohamed Ali Murad',
+    missed: false,
+    passed: true,
+    score: '5/10',
+  },
+  { id: 2, name: 'Ali Ahmed', missed: true, passed: false, score: null },
+  { id: 3, name: 'Ahmed Ali', missed: false, passed: true, score: '6/10' },
+  {
+    id: 4,
+    name: 'Fatima Hassan',
+    missed: false,
+    passed: true,
+    score: '5/10',
+  },
+  { id: 5, name: 'Omar Abdullah', missed: true, passed: false, score: null },
+  {
+    id: 6,
+    name: 'Yara Mahmoud',
+    missed: false,
+    passed: true,
+    score: '10/10',
+  },
+  { id: 7, name: 'Lina Salah', missed: true, passed: false, score: null },
+  { id: 8, name: 'Karim Ali', missed: false, passed: false, score: '4/10' },
+  { id: 9, name: 'Nadia Ahmed', missed: true, passed: false, score: null },
+  { id: 10, name: 'Rana Samir', missed: false, passed: false, score: '0/10' },
+  { id: 11, name: 'Ali Hassan', missed: true, passed: false, score: null },
+  {
+    id: 12,
+    name: 'Sara Mohamed',
+    missed: false,
+    passed: true,
+    score: '7/10',
+  },
+  { id: 13, name: 'Hassan Ali', missed: true, passed: false, score: null },
+  {
+    id: 14,
+    name: 'Amira Mahmoud',
+    missed: false,
+    passed: true,
+    score: '7/10',
+  },
+  {
+    id: 15,
+    name: 'Ahmed Ibrahim',
+    missed: false,
+    passed: true,
+    score: '8/10',
+  },
+  {
+    id: 16,
+    name: 'Noura Hassan',
+    missed: false,
+    passed: true,
+    score: '10/10',
+  },
+  { id: 17, name: 'Maha Ali', missed: true, passed: false, score: null },
+  {
+    id: 18,
+    name: 'Youssef Ahmed',
+    missed: false,
+    passed: true,
+    score: '5/10',
+  },
+  { id: 19, name: 'Hala Mohamed', missed: true, passed: false, score: null },
+  {
+    id: 20,
+    name: 'Ragab Hassan',
+    missed: false,
+    passed: false,
+    score: '1/10',
+  },
+];
+
+export default Students;

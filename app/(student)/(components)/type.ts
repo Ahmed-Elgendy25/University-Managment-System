@@ -41,4 +41,5 @@ export type quizDetailsTyped = {
 export type LocationObject = {
   latitude: number | null;
   longitude: number | null;
+  timeStamp: number;
 };

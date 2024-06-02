@@ -1,12 +1,12 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
 import React from 'react';
-import dataModules from './dataModules';
 import { Link } from 'expo-router';
 import { Flex } from 'native-base';
+import dataModules from './dataModules';
 
 const modules = dataModules;
 
-const Modules = () => {
+const StudentModules = () => {
   return (
     <>
       {modules.map((module: { id: number; name: string; href: string }) => {
@@ -35,7 +35,7 @@ const Modules = () => {
   );
 };
 
-export default Modules;
+export default StudentModules;
 
 const styles = StyleSheet.create({
   moduleItem: {
