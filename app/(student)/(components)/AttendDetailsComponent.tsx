@@ -37,34 +37,28 @@ const Details = quizDetails;
 
 const AttendDetailsComponent = () => {
   let netinfo = useNetInfo();
-
+  let [cached, setCached] = useState<string | null>('');
   const { data, error, refetch, isLoading } = useQuery<getLocationTyped, Error>(
     {
       queryKey: ['location'],
       queryFn: async () => {
         const location = await getLocation();
         const { latitude, longitude } = data?.coords || {};
-
+        cacheLocation({
+          latitude,
+          longitude,
+          timeStamp: moment().valueOf(),
+        } as LocationObject);
         return location as getLocationTyped;
       },
     }
   );
 
-  let checkCachedLocation = async (
-    latitude: number | undefined,
-    longitude: number | undefined
-  ) => {
+  let checkCachedLocation = async () => {
     try {
-      if (latitude ?? (undefined && longitude) ?? undefined) {
-        cacheLocation({
-          latitude: latitude ?? 0,
-          longitude: longitude ?? 0,
-          timeStamp: moment().valueOf(),
-        } as LocationObject);
-      }
-
       const jsonValue = await AsyncStorage.getItem('location');
-
+      console.log(jsonValue);
+      setCached(jsonValue);
       if (jsonValue != null && netinfo.isInternetReachable === false) {
         Alert.alert(
           'Internet Unreachable',
@@ -79,8 +73,9 @@ const AttendDetailsComponent = () => {
   };
 
   if (netinfo.isInternetReachable === false) {
-    checkCachedLocation(data?.coords.latitude, data?.coords.longitude);
+    checkCachedLocation();
   }
+
   //
 
   // const { location, errorMsg, getLocation } = useLocation();
@@ -192,6 +187,8 @@ const AttendDetailsComponent = () => {
         >
           Take Attend
         </Button>
+
+        {/* <Text>{cached ? `${cached}` : 'msh sh8ala yalahwi'}</Text> */}
       </Box>
     </Flex>
   );

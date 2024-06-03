@@ -5,6 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { VStack } from 'native-base';
 import SessionsData from '../(components)/SessionsData';
 import SessionComponent from '../(components)/SessionComponent';
+import { Link } from 'expo-router';
 
 const Sessions = SessionsData;
 
@@ -24,9 +25,17 @@ const index = () => {
           </VStack>
         </ScrollView>
       </View>
-      <Pressable style={styles.icon} onPress={onPressHandler}>
-        <AntDesign name="pluscircleo" color="#F19A1A" size={55} />
-      </Pressable>
+      <Link
+        href={{
+          pathname: '/(professor)/Attendance/CreateAttendSession/',
+        }}
+        push
+        asChild
+      >
+        <Pressable style={styles.icon} onPress={onPressHandler}>
+          <AntDesign name="pluscircleo" color="#F19A1A" size={55} />
+        </Pressable>
+      </Link>
     </View>
   );
 };

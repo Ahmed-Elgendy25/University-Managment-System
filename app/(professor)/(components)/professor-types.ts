@@ -42,3 +42,31 @@ export type SessionTyped = {
   creationDate: string;
   room: string;
 };
+
+export interface LocationTyped {
+  id: number;
+  name: string;
+  buildings: BuildingTyped[];
+}
+
+export interface BuildingTyped {
+  id: number;
+  name: string;
+  rooms: RoomTyped[];
+}
+
+export interface RoomTyped {
+  id: number;
+  name: string;
+}
+export type LocationObject = {
+  latitude: number | null;
+  longitude: number | null;
+  timeStamp: number;
+};
+
+export interface RatingItem {
+  id: number;
+  rating: number;
+  feedback: string;
+}
