@@ -16,9 +16,7 @@ const index = () => {
         <ButtonComponentAttendance path="Attend">
           <Text>Attend</Text>
         </ButtonComponentAttendance>
-        <ButtonComponentAttendance path="Presence">
-          <Text>Presence</Text>
-        </ButtonComponentAttendance>
+
         <ButtonComponentAttendance path="Absence">
           <Text>Absence</Text>
         </ButtonComponentAttendance>

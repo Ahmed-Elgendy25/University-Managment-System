@@ -17,7 +17,7 @@ const Assignment = ({ assignment }: AssignmentProps) => {
   return (
     <Link
       href={{
-        pathname: '/(student)/AssignmentScreen/AssignmentSubmition',
+        pathname: '/(student)/AssignmentScreen/AssignmentSubmition/',
         params: { title: assignment.title },
       }}
       asChild
