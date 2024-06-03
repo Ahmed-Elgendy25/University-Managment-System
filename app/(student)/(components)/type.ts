@@ -43,3 +43,13 @@ export type LocationObject = {
   longitude: number | null;
   timeStamp: number;
 };
+
+export interface QuestionTyped {
+  id: number;
+  type: string;
+  question: string;
+  imageLink?: string | null;
+  options: {
+    values: { id: string; text: string; isCorrect: boolean }[];
+  };
+}

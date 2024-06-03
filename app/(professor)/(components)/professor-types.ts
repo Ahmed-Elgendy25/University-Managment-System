@@ -36,3 +36,9 @@ export interface AssignmentProps {
   title: string;
   finished: boolean;
 }
+export type SessionTyped = {
+  id: number;
+  title: string;
+  creationDate: string;
+  room: string;
+};

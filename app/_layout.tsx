@@ -127,6 +127,15 @@ const _layout = () => {
               headerStyle: { backgroundColor: '#F19A1A' },
             }}
           />
+
+          <Stack.Screen
+            name="(professor)/Attendance/index"
+            options={{
+              headerTitle: 'Attendance',
+              headerShown: true,
+              headerStyle: { backgroundColor: '#F19A1A' },
+            }}
+          />
         </Stack>
       </QueryClientProvider>
     </NativeBaseProvider>

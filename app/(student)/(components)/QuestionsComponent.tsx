@@ -5,18 +5,13 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Image,
 } from 'react-native';
-import { RadioButton } from 'react-native-paper';
-
-interface Question {
-  question: string;
-  options: string[];
-  answer: string;
-}
+import { RadioButton, Checkbox } from 'react-native-paper';
+import { QuestionTyped } from './type';
 
 interface Props {
-  sampleQuestions?: Question[];
-  duration?: number;
+  sampleQuestions: QuestionTyped[];
   setScore: React.Dispatch<React.SetStateAction<number | null>>;
   timeLeft: number;
   setTimeLeft: React.Dispatch<React.SetStateAction<number>>;
@@ -24,18 +19,17 @@ interface Props {
   setSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const QuestionsComponent: React.FC<Props> = ({
+const QuestionsComponent = ({
   sampleQuestions = [],
-  duration = 0,
   setScore,
   timeLeft,
   setTimeLeft,
   submitted,
   setSubmitted,
-}) => {
-  const [selectedOptionIndices, setSelectedOptionIndices] = useState<number[]>(
-    new Array(sampleQuestions.length).fill(null)
-  );
+}: Props) => {
+  const [selectedOptionIndices, setSelectedOptionIndices] = useState<
+    (string | string[] | null)[]
+  >(new Array(sampleQuestions.length).fill(null));
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -54,26 +48,70 @@ const QuestionsComponent: React.FC<Props> = ({
 
   useEffect(() => {
     if (submitted) {
-      const calculatedScore = calculateDegree();
+      const calculatedScore = calculateScore();
       setScore(calculatedScore);
     }
   }, [submitted]);
 
-  const handleOptionPress = (questionIndex: number, optionIndex: number) => {
+  const handleOptionPress = (questionIndex: number, optionId: string) => {
     if (submitted || timeLeft === 0) return;
-    const newSelectedOptionIndices = [...selectedOptionIndices];
-    newSelectedOptionIndices[questionIndex] = optionIndex;
-    setSelectedOptionIndices(newSelectedOptionIndices);
+    setSelectedOptionIndices((prevState) => {
+      const newState = [...prevState];
+      newState[questionIndex] = optionId;
+      return newState;
+    });
   };
 
-  const calculateDegree = () => {
+  const handleCheckboxPress = (questionIndex: number, optionId: string) => {
+    if (submitted || timeLeft === 0) return;
+    setSelectedOptionIndices((prevState) => {
+      const newState = [...prevState];
+      if (!Array.isArray(newState[questionIndex])) {
+        newState[questionIndex] = [];
+      }
+      const optionIndex = (newState[questionIndex] as string[]).indexOf(
+        optionId
+      );
+      if (optionIndex !== -1) {
+        (newState[questionIndex] as string[]).splice(optionIndex, 1);
+      } else {
+        (newState[questionIndex] as string[]).push(optionId);
+      }
+      return newState;
+    });
+  };
+
+  const calculateScore = () => {
     return sampleQuestions.reduce((correctAnswersCount, question, index) => {
-      const userChoiceIndex = selectedOptionIndices[index];
-      if (
-        userChoiceIndex !== null &&
-        question.answer === question.options[userChoiceIndex]
-      ) {
-        correctAnswersCount++;
+      const userChoiceIds = selectedOptionIndices[index];
+      if (userChoiceIds !== null) {
+        if (Array.isArray(userChoiceIds)) {
+          // For optional-choice questions
+          const correctOptionIds = question.options.values
+            .filter((option) => option.isCorrect)
+            .map((option) => option.id);
+          const isAllCorrectlySelected = correctOptionIds.every((optionId) =>
+            userChoiceIds.includes(optionId)
+          );
+          const isAllIncorrectlySelected = userChoiceIds.every(
+            (optionId) => !correctOptionIds.includes(optionId)
+          );
+          if (
+            isAllCorrectlySelected &&
+            userChoiceIds.length === correctOptionIds.length
+          ) {
+            correctAnswersCount++;
+          }
+        } else {
+          // For multiple-choice questions
+          if (
+            question.options.values.find(
+              (option) => option.id === userChoiceIds
+            )?.isCorrect
+          ) {
+            correctAnswersCount++;
+          }
+        }
       }
       return correctAnswersCount;
     }, 0);
@@ -85,23 +123,51 @@ const QuestionsComponent: React.FC<Props> = ({
 
   const renderQuestions = () => {
     return sampleQuestions.map((question, index) => (
-      <View key={index} style={styles.questionContainer}>
+      <View key={question.id} style={styles.questionContainer}>
         <Text style={styles.question}>{`Q${index + 1}: ${
           question.question
         }`}</Text>
-        {question.options.map((option, optionIndex) => (
-          <View key={optionIndex} style={styles.option}>
-            <RadioButton
-              value={String(optionIndex)}
-              status={
-                selectedOptionIndices[index] === optionIndex
-                  ? 'checked'
-                  : 'unchecked'
-              }
-              onPress={() => handleOptionPress(index, optionIndex)}
-              disabled={submitted || timeLeft === 0}
-            />
-            <Text style={styles.optionText}>{option}</Text>
+        {question.imageLink && (
+          <Image source={{ uri: question.imageLink }} style={styles.image} />
+        )}
+        {question.options.values.map((option) => (
+          <View key={option.id} style={styles.option}>
+            {question.type === 'multiple-choice' ? (
+              <RadioButton
+                value={option.id}
+                status={
+                  selectedOptionIndices[index] === option.id
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => handleOptionPress(index, option.id)}
+                disabled={submitted || timeLeft === 0}
+              />
+            ) : question.type === 'optional-choice' ? (
+              <Checkbox
+                status={
+                  (selectedOptionIndices[index] as string[])?.includes(
+                    option.id
+                  )
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => handleCheckboxPress(index, option.id)}
+                disabled={submitted || timeLeft === 0}
+              />
+            ) : (
+              <RadioButton
+                value={option.id}
+                status={
+                  selectedOptionIndices[index] === option.id
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => handleOptionPress(index, option.id)}
+                disabled={submitted || timeLeft === 0}
+              />
+            )}
+            <Text style={styles.optionText}>{option.text}</Text>
           </View>
         ))}
       </View>
@@ -119,6 +185,7 @@ const QuestionsComponent: React.FC<Props> = ({
     </ScrollView>
   );
 };
+export default QuestionsComponent;
 
 const styles = StyleSheet.create({
   container: {
@@ -163,40 +230,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  image: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'cover',
+    marginBottom: 10,
+  },
 });
-
-export default QuestionsComponent;
-
-// import React, { useState } from 'react';
-// import { RadioButton } from 'react-native-paper';
-// import { OptionsTyped } from './type';
-
-// const QuestionsComponent = ({ options }: { options: OptionsTyped }) => {
-//   const [selectedValue, setSelectedValue] = useState<string | undefined>(
-//     undefined
-//   );
-
-//   const handleValueChange = (value: any) => {
-//     setSelectedValue(value);
-//   };
-
-//   return (
-//     <>
-//       {options.map((option, index) => {
-//         return (
-//           <RadioButton.Group
-//             value={selectedValue}
-//             onValueChange={handleValueChange}
-//             name="myRadioGroup"
-//             accessibilityLabel="Pick your Answer"
-//             key={index}
-//           >
-//             <RadioButton.Item value={option} label={option} />
-//           </RadioButton.Group>
-//         );
-//       })}
-//     </>
-//   );
-// };
-
-// export default QuestionsComponent;

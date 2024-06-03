@@ -55,7 +55,7 @@ const Home = () => {
           <AntDesign name="bells" size={25} color="white" />
         </Pressable>
       </View>
-      <Box my={3}>
+      {/* <Box my={3}>
         <Button
           disabled={isDisabled}
           buttonColor={'#f72d2d'}
@@ -65,7 +65,7 @@ const Home = () => {
         >
           Ergent Attend
         </Button>
-      </Box>
+      </Box> */}
 
       <View style={styles.middleSection}>
         <ScrollView>

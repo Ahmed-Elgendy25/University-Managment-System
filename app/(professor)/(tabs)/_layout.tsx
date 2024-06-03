@@ -15,6 +15,7 @@ const _layout = () => {
         <Tabs.Screen
           name="Home"
           options={{
+            href: '(professor)/(tabs)/Home',
             headerTitle: 'Professor Home',
             headerShown: false,
           }}

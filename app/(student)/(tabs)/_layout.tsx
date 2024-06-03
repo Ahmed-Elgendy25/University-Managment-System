@@ -10,7 +10,7 @@ const _layout = () => {
         <Tabs.Screen
           name="Home"
           options={{
-            href: '/Home',
+            href: '(student)/(tabs)/Home',
           }}
         />
 
@@ -18,7 +18,7 @@ const _layout = () => {
           name="Chat"
           options={{
             href: {
-              pathname: '/Chat',
+              pathname: '(student)/(tabs)/Chat',
             },
           }}
         />
@@ -26,7 +26,7 @@ const _layout = () => {
           name="Profile"
           options={{
             href: {
-              pathname: '/Profile',
+              pathname: '(student)/(tabs)/Profile',
             },
           }}
         />
