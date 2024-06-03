@@ -9,38 +9,44 @@ import {
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-
-const ProfileScreen = () => {
+import * as ImageManipulator from 'expo-image-manipulator';
+const ProfileScreen: React.FC = () => {
   const defaultImage = require('../../../assets/profile_img.jpg');
   const [profilePhoto, setProfilePhoto] = useState<any>(defaultImage);
 
-  const selectProfilePhoto = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== 'granted') {
-      Alert.alert(
-        'Permission denied',
-        'Sorry, we need camera roll permissions to change your profile photo.'
-      );
-      return;
-    }
+  const pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 1,
+      });
 
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      setProfilePhoto({ uri: result.uri });
-      console.log('Selected image URI:', result.uri);
+      if (!result.canceled) {
+        const { uri } = result.assets[0];
+        const croppedResult = await ImageManipulator.manipulateAsync(
+          uri,
+          [{ resize: { width: 300 } }],
+          { compress: 1, format: ImageManipulator.SaveFormat.JPEG }
+        );
+        setProfilePhoto(croppedResult);
+        return croppedResult;
+      }
+    } catch (error) {
+      console.log('Error picking image:', error);
+      Alert.alert('Error', 'Failed to pick image. Please try again.');
     }
+  };
+
+  const handleLogout = () => {
+    // Add your logout logic here, such as clearing user data, navigating to the login screen, etc.
+    console.log('Logout');
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.profileSection}>
-        <TouchableOpacity onPress={selectProfilePhoto}>
+        <TouchableOpacity onPress={pickImage}>
           <View style={styles.profilePhotoContainer}>
             <Image source={profilePhoto} style={styles.profilePhoto} />
             <View style={styles.editIconContainer}>
@@ -72,7 +78,7 @@ const ProfileScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.logoutButton}>
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>
     </View>
@@ -83,7 +89,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-
     paddingTop: 40,
     paddingHorizontal: 20,
     backgroundColor: '#fff',
@@ -120,14 +125,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   settingsSection: {
-    flex: 0.25,
+    flex: 0.23,
     width: '100%',
     marginBottom: 20,
+    marginTop: 15,
   },
   supportSection: {
     flex: 0.23,
     width: '100%',
     marginBottom: 20,
+    paddingTop: 25,
   },
   sectionHeader: {
     fontSize: 18,
@@ -153,5 +160,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
 export default ProfileScreen;

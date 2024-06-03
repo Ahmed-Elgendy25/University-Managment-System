@@ -14,14 +14,15 @@ const Subject = ({ color, courseName }: PropsWithChildren<ItemProps>) => {
   };
 
   return (
-    <Pressable onPress={onPressHandler}>
-      <Link
-        push
-        href={{
-          pathname: '/(student)/subjectDetails',
-          params: { courseName: courseName },
-        }}
-      >
+    <Link
+      push
+      href={{
+        pathname: '/(student)/subjectDetails',
+        params: { courseName: courseName },
+      }}
+      asChild
+    >
+      <Pressable onPress={onPressHandler}>
         <Center
           w="100%"
           h="100"
@@ -47,8 +48,8 @@ const Subject = ({ color, courseName }: PropsWithChildren<ItemProps>) => {
             </View>
           </View>
         </Center>
-      </Link>
-    </Pressable>
+      </Pressable>
+    </Link>
   );
 };
 

@@ -2,42 +2,51 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Center, Icon } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
+import { Link } from 'expo-router';
 interface AssignmentProps {
   assignment: {
     title: string;
   };
 }
 
-const Assignment: React.FC<AssignmentProps> = ({ assignment }) => {
+const Assignment = ({ assignment }: AssignmentProps) => {
   const onPressHandler = () => {
     console.log('Pressed');
   };
 
   return (
-    <Pressable onPress={onPressHandler}>
-      <Center
-        h="100"
-        bg="#F6F6F6"
-        rounded="xl"
-        shadow={0}
-        style={styles.container}
-      >
-        <View style={styles.icon}>
-          <AntDesign name="filetext1" size={40} color="#F19A1A" />
-        </View>
-        <View style={styles.content}>
-          <View style={styles.textContainer}>
-            <Text style={styles.assignmentNumber}>{assignment.title}</Text>
-            <Text style={styles.deadline}>Deadline: Sept. 3 | 12 PM</Text>
+    <Link
+      href={{
+        pathname: '/(student)/AssignmentScreen/AssignmentSubmition',
+        params: { title: assignment.title },
+      }}
+      asChild
+    >
+      <Pressable onPress={onPressHandler}>
+        <Center
+          h="100"
+          bg="#F6F6F6"
+          rounded="xl"
+          shadow={0}
+          style={styles.container}
+        >
+          <View style={styles.icon}>
+            <AntDesign name="filetext1" size={40} color="#F19A1A" />
           </View>
-          <View style={styles.daysLeftContainer}>
-            <Text style={[styles.daysLeft, { backgroundColor: '#ED7633' }]}>
-              1 more day
-            </Text>
+          <View style={styles.content}>
+            <View style={styles.textContainer}>
+              <Text style={styles.assignmentNumber}>{assignment.title}</Text>
+              <Text style={styles.deadline}>Deadline: Sept. 3 | 12 PM</Text>
+            </View>
+            <View style={styles.daysLeftContainer}>
+              <Text style={[styles.daysLeft, { backgroundColor: '#ED7633' }]}>
+                1 more day
+              </Text>
+            </View>
           </View>
-        </View>
-      </Center>
-    </Pressable>
+        </Center>
+      </Pressable>
+    </Link>
   );
 };
 
