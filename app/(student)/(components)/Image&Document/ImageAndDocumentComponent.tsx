@@ -19,14 +19,19 @@ const ImageAndDocumentComponent = ({
       style={{
         backgroundColor: '#ffffff7d',
         width: '100%',
-        padding: 15,
+        paddingVertical: 0,
         borderRadius: 6,
         marginVertical: 3,
       }}
     >
       <Flex flexDir={'row'} justifyContent={'flex-start'} width={'full'}>
         {children}
-        <Text fontWeight={'medium'} color={'blue.300'} ml={2}>
+        <Text
+          fontWeight={'medium'}
+          color={'blue.300'}
+          ml={2}
+          alignSelf={'center'}
+        >
           {alt.substring(0, 10)}
         </Text>
       </Flex>

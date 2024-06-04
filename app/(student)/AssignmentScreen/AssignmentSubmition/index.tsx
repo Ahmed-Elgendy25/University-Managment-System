@@ -8,6 +8,7 @@ import {
   Alert,
   Modal,
   Image,
+  ScrollView,
 } from 'react-native';
 // import { Document, Page } from 'react-pdf';
 import * as DocumentPicker from 'expo-document-picker';
@@ -21,7 +22,9 @@ import FileViewer from 'react-native-file-viewer';
 import ImageAndDocumentComponent from '../../(components)/Image&Document/ImageAndDocumentComponent';
 import { WebView } from 'react-native-webview';
 import Constants from 'expo-constants';
+import { Entypo } from '@expo/vector-icons';
 
+import { AntDesign } from '@expo/vector-icons';
 const index = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [isUploadClicked, setIsUploadClicked] = useState(false);
@@ -234,34 +237,52 @@ const index = () => {
                 !isUploadClicked && { color: '#ffffff' },
               ]}
             >
-              Review
+              Material
             </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.content}>
           {isUploadClicked ? (
-            <>
+            <ScrollView style={{ width: '100%', paddingHorizontal: 5 }}>
               {doc &&
                 doc.map((doc) => (
                   <ImageAndDocumentComponent
                     alt={doc.name}
                     savePhotos={savePhotos}
                   >
-                    <Image
-                      source={{ uri: doc?.uri }}
-                      alt={doc.name}
-                      style={{
-                        width: '20%',
-                        height: 50,
-                        aspectRatio: 1 / 1,
-                        borderTopLeftRadius: 6,
-                      }}
-                    />
+                    {doc.mimeType?.startsWith('image') ? (
+                      <Image
+                        source={{ uri: doc?.uri }}
+                        alt={doc.name}
+                        style={{
+                          width: '20%',
+                          height: 50,
+                          aspectRatio: 1 / 1,
+                          borderTopLeftRadius: 6,
+                        }}
+                      />
+                    ) : (
+                      <AntDesign
+                        name="pdffile1"
+                        size={50}
+                        color="#F19A1A"
+                        style={{}}
+                      />
+                    )}
                   </ImageAndDocumentComponent>
                 ))}
-            </>
+            </ScrollView>
           ) : (
-            <Text>Review</Text>
+            <Button bgColor={'white'}>
+              <Text
+                color={'#F19A1A'}
+                fontWeight={'semibold'}
+                p={'4'}
+                fontSize={'lg'}
+              >
+                Download
+              </Text>
+            </Button>
           )}
         </View>
       </View>
@@ -273,6 +294,15 @@ const index = () => {
             value={commentText}
             style={styles.input}
           />
+
+          <Entypo
+            name="attachment"
+            size={24}
+            color="#F19A1A"
+            onPress={pickDocument}
+            style={{ marginHorizontal: 3 }}
+          />
+
           <TouchableOpacity
             onPress={handleAssignmentSubmit}
             style={styles.submitButton}
@@ -280,17 +310,6 @@ const index = () => {
           >
             <Text style={styles.submitButtonText}>Submit</Text>
           </TouchableOpacity>
-
-          <Button
-            bgColor={'white'}
-            size={'md'}
-            width={'24'}
-            onPress={pickDocument}
-          >
-            <Text color={'#F19A1A'} fontWeight={'bold'} fontSize={'lg'}>
-              Attach
-            </Text>
-          </Button>
         </View>
       )}
 
