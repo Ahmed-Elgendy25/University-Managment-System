@@ -19,6 +19,8 @@ import * as FileSystem from 'expo-file-system';
 import { Box, Button, Text } from 'native-base';
 import FileViewer from 'react-native-file-viewer';
 import ImageAndDocumentComponent from '../../(components)/Image&Document/ImageAndDocumentComponent';
+import { WebView } from 'react-native-webview';
+import Constants from 'expo-constants';
 
 const index = () => {
   const [isSubmit, setIsSubmit] = useState(false);
@@ -184,6 +186,16 @@ const index = () => {
   //   });
   // }
 
+  // const handlePress = async (downloadUrl) => {
+  //   const supported = await Linking.canOpenURL(downloadUrl);
+
+  //   if (supported) {
+  //     await Linking.openURL(downloadUrl);
+  //   } else {
+  //     console.log(`Don't know how to open this URL: ${downloadUrl}`);
+  //   }
+  // };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -230,27 +242,23 @@ const index = () => {
           {isUploadClicked ? (
             <>
               {doc &&
-                doc.map((doc) => {
-                  if (doc.mimeType?.startsWith('image')) {
-                    return (
-                      <ImageAndDocumentComponent
-                        alt={doc.name}
-                        savePhotos={savePhotos}
-                      >
-                        <Image
-                          source={{ uri: doc?.uri }}
-                          alt={doc.name}
-                          style={{
-                            width: '20%',
-                            height: 50,
-                            aspectRatio: 1 / 1,
-                            borderTopLeftRadius: 6,
-                          }}
-                        />
-                      </ImageAndDocumentComponent>
-                    );
-                  }
-                })}
+                doc.map((doc) => (
+                  <ImageAndDocumentComponent
+                    alt={doc.name}
+                    savePhotos={savePhotos}
+                  >
+                    <Image
+                      source={{ uri: doc?.uri }}
+                      alt={doc.name}
+                      style={{
+                        width: '20%',
+                        height: 50,
+                        aspectRatio: 1 / 1,
+                        borderTopLeftRadius: 6,
+                      }}
+                    />
+                  </ImageAndDocumentComponent>
+                ))}
             </>
           ) : (
             <Text>Review</Text>
@@ -428,5 +436,10 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     marginBottom: 10,
+  },
+
+  containerWebView: {
+    flex: 1,
+    marginTop: Constants.statusBarHeight,
   },
 });

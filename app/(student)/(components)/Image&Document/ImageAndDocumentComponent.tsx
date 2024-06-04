@@ -24,16 +24,9 @@ const ImageAndDocumentComponent = ({
         marginVertical: 3,
       }}
     >
-      {children}
-
       <Flex flexDir={'row'} justifyContent={'flex-start'} width={'full'}>
-        <Text
-          fontWeight={'medium'}
-          color={'blue.300'}
-          alignSelf={'center'}
-          ml={2}
-          textDecoration={'underline'}
-        >
+        {children}
+        <Text fontWeight={'medium'} color={'blue.300'} ml={2}>
           {alt.substring(0, 10)}
         </Text>
       </Flex>
