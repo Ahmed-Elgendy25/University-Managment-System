@@ -1,5 +1,5 @@
 import React from 'react';
-import { quizzList } from './quiz-list';
+import { quizzList } from './ExamsList';
 import { Box, Flex, VStack, Text, Center, Heading } from 'native-base';
 import { Link } from 'expo-router';
 import { Pressable, ScrollView } from 'react-native';

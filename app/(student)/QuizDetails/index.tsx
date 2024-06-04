@@ -8,11 +8,11 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 
 const index = () => {
   const navigation = useNavigation();
-  const params = useLocalSearchParams<{ name: string }>();
-  const { name } = params;
+  const params = useLocalSearchParams<{ examName: string }>();
+  const { examName } = params;
   useEffect(() => {
-    navigation.setOptions({ title: name });
-  }, [name]);
+    navigation.setOptions({ title: examName });
+  }, [examName]);
   return (
     <ScrollView>
       <SafeAreaView>

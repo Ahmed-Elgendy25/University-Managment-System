@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { RadioButton, Checkbox } from 'react-native-paper';
 import { QuestionTyped } from './type';
+import { router } from 'expo-router';
 
 interface Props {
   sampleQuestions: QuestionTyped[];
@@ -30,6 +31,8 @@ const QuestionsComponent = ({
   const [selectedOptionIndices, setSelectedOptionIndices] = useState<
     (string | string[] | null)[]
   >(new Array(sampleQuestions.length).fill(null));
+
+  let [home, setHome] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -119,6 +122,7 @@ const QuestionsComponent = ({
 
   const handleSubmit = () => {
     setSubmitted(true);
+    setHome(true);
   };
 
   const renderQuestions = () => {
@@ -180,6 +184,18 @@ const QuestionsComponent = ({
       {!submitted && (
         <TouchableOpacity onPress={handleSubmit} style={styles.submitButton}>
           <Text style={styles.submitButtonText}>Submit</Text>
+        </TouchableOpacity>
+      )}
+
+      {home && (
+        <TouchableOpacity
+          onPress={() => {
+            setHome(false);
+            router.replace('/(student)/(tabs)/Home');
+          }}
+          style={styles.submitButton}
+        >
+          <Text style={styles.submitButtonText}>Go to Home</Text>
         </TouchableOpacity>
       )}
     </ScrollView>

@@ -83,6 +83,15 @@ const _layout = () => {
             name="(student)/QuizScreen/index"
             options={{
               headerTitle: 'Exams',
+
+              headerStyle: { backgroundColor: '#F19A1A' },
+            }}
+          />
+          <Stack.Screen
+            name="(student)/ExamScreen/index"
+            options={{
+              headerTitle: 'Exams',
+              headerShown: false,
               headerStyle: { backgroundColor: '#F19A1A' },
             }}
           />

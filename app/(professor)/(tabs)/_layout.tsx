@@ -9,6 +9,8 @@ const _layout = () => {
       <Tabs
         screenOptions={{
           headerShown: true,
+          headerTintColor: '#fff',
+
           headerStyle: { backgroundColor: '#F19A1A' },
         }}
       >

@@ -53,3 +53,12 @@ export interface QuestionTyped {
     values: { id: string; text: string; isCorrect: boolean }[];
   };
 }
+export type ExamsTyped = {
+  id: number;
+  title: string;
+  date: string;
+  startTime: string;
+  duration: string;
+  status: string;
+  isActive: boolean;
+};
