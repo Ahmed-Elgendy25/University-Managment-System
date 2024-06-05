@@ -49,6 +49,7 @@ const AttendDetailsComponent = () => {
           longitude,
           timeStamp: moment().valueOf(),
         } as LocationObject);
+
         return location as getLocationTyped;
       },
     }
@@ -188,7 +189,7 @@ const AttendDetailsComponent = () => {
           Take Attend
         </Button>
 
-        {/* <Text>{cached ? `${cached}` : 'msh sh8ala yalahwi'}</Text> */}
+        <Text>{cached ? `${cached}` : 'msh sh8ala yalahwi'}</Text>
       </Box>
     </Flex>
   );

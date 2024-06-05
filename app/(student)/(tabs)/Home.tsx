@@ -15,56 +15,58 @@ import NetInfo, { useNetInfo } from '@react-native-community/netinfo';
 
 import getCachedLocation from '@/API/getCachedLocation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LocationObject } from '../(components)/type';
 
 const Home = () => {
-  let [isDisabled, setIsDisabled] = useState<boolean>(true);
-  let [isConnected, setIsConnected] = useState<boolean | null>(null);
-  const [cachedLocation, setCachedLocation] = useState(null);
-
-  let [cached, setCached] = useState<string | null>('');
-
+  // let [isDisabled, setIsDisabled] = useState<boolean>(true);
+  // const [cachedLocation, setCachedLocation] = useState(null);
   let netinfo = useNetInfo();
 
-  // useEffect(() => {
-  //   const unsubscribe = NetInfo.addEventListener((state) => {
-  //     setIsConnected(state.isConnected);
-  //   });
+  let [isConnected, setIsConnected] = useState<boolean | null>(null);
 
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     // Offline - Retrieve cached data
-  //     if (isConnected) {
-  //       const cachedLocationData = await getCachedLocation();
-  //       setCachedLocation(cachedLocationData);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [isConnected]);
+  let [cached, setCached] = useState<LocationObject | null>(null);
 
   let checkCachedLocation = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('location');
-      console.log(jsonValue);
-      setCached(jsonValue);
+      // console.log(JSON.parse(jsonValue));
       if (jsonValue != null) {
         // API POST REQUEST
+        const parsedValue: LocationObject = JSON.parse(jsonValue);
 
-        AsyncStorage.clear();
+        setCached(parsedValue);
+        // AsyncStorage.clear();
       }
     } catch (err) {
       Alert.alert(`Error, Can't get the cached location: `, err as string);
     }
   };
 
-  if (netinfo.isConnected === true) {
-    checkCachedLocation();
-  }
+  // useEffect(() => {
+  //   const unsubscribe = NetInfo.addEventListener((state) => {
+  //     setIsConnected(state.isConnected);
+  //   });
+
+  //   // Cleanup the event listener on component unmount
+  //   return () => unsubscribe();
+  // }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      NetInfo.fetch().then((state) => {
+        if (isConnected === true && state.isConnected === true) {
+          console.log(isConnected);
+          console.log(state.isConnected);
+          // Connection was lost and is now back
+          checkCachedLocation();
+        }
+        setIsConnected(state.isConnected);
+      });
+    }, 3000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(interval);
+  }, [isConnected]);
 
   return (
     <View style={styles.container}>
@@ -80,11 +82,13 @@ const Home = () => {
             }}
           >
             Mohamed
-            {cached !== '' ? (
+            {/* {cached == null ? (
               <Text style={{ color: 'black' }}>Yalahwiiiii</Text>
             ) : (
-              <Text>{cached}</Text>
-            )}
+              <Text style={{ marginHorizontal: 5 }}>
+                {cached?.latitude} {cached?.longitude} {cached?.timeStamp}
+              </Text>
+            )} */}
           </Text>
         </View>
         <Pressable>
