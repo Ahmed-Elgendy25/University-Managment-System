@@ -97,6 +97,13 @@ const _layout = () => {
           />
 
           <Stack.Screen name="(student)/MessageScreen/index" />
+
+          <Stack.Screen
+            name="(student)/MessageMembers/index"
+            options={{
+              headerTitle: 'Members',
+            }}
+          />
           <Stack.Screen
             name="(student)/Feedback/index"
             options={{

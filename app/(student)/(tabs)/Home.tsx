@@ -1,39 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { Box, VStack } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
 import Subject from '../(components)/Subject';
 import { Button } from 'react-native-paper';
-import NetInfo from '@react-native-community/netinfo';
+import NetInfo, { useNetInfo } from '@react-native-community/netinfo';
 
 import getCachedLocation from '@/API/getCachedLocation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = () => {
   let [isDisabled, setIsDisabled] = useState<boolean>(true);
   let [isConnected, setIsConnected] = useState<boolean | null>(null);
   const [cachedLocation, setCachedLocation] = useState(null);
 
-  useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state) => {
-      setIsConnected(state.isConnected);
-    });
+  let [cached, setCached] = useState<string | null>('');
 
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  let netinfo = useNetInfo();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // Offline - Retrieve cached data
-      if (isConnected) {
-        const cachedLocationData = await getCachedLocation();
-        setCachedLocation(cachedLocationData);
+  // useEffect(() => {
+  //   const unsubscribe = NetInfo.addEventListener((state) => {
+  //     setIsConnected(state.isConnected);
+  //   });
+
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     // Offline - Retrieve cached data
+  //     if (isConnected) {
+  //       const cachedLocationData = await getCachedLocation();
+  //       setCachedLocation(cachedLocationData);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [isConnected]);
+
+  let checkCachedLocation = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('location');
+      console.log(jsonValue);
+      setCached(jsonValue);
+      if (jsonValue != null) {
+        // API POST REQUEST
+
+        AsyncStorage.clear();
       }
-    };
+    } catch (err) {
+      Alert.alert(`Error, Can't get the cached location: `, err as string);
+    }
+  };
 
-    fetchData();
-  }, [isConnected]);
+  if (netinfo.isConnected === true) {
+    checkCachedLocation();
+  }
 
   return (
     <View style={styles.container}>
@@ -49,6 +80,11 @@ const Home = () => {
             }}
           >
             Mohamed
+            {cached !== '' ? (
+              <Text style={{ color: 'black' }}>Yalahwiiiii</Text>
+            ) : (
+              <Text>{cached}</Text>
+            )}
           </Text>
         </View>
         <Pressable>

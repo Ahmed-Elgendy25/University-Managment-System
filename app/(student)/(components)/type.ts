@@ -62,3 +62,11 @@ export type ExamsTyped = {
   status: string;
   isActive: boolean;
 };
+
+export type SessionsTyped = {
+  id: number;
+  title: string;
+  date: string;
+  duration: string;
+  status: string;
+};
