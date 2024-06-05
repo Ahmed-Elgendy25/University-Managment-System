@@ -24,9 +24,7 @@ const index = () => {
     navigation.setOptions({ title: examName });
   }, [examName]);
 
-  const [filterCriteria, setFilterCriteria] = useState<
-    'upcoming' | 'submit' | 'missed'
-  >('upcoming');
+  const [filterCriteria, setFilterCriteria] = useState<'upcoming' | 'submit' | 'missed'>('upcoming');
   const [searchText, setSearchText] = useState<string>('');
 
   const handleTabPress = (criteria: 'upcoming' | 'submit' | 'missed') => {
@@ -38,52 +36,21 @@ const index = () => {
   };
 
   const filteredExams = exams.filter((exam) => {
-    const nameMatch = exam.title
-      .toLowerCase()
-      .startsWith(searchText.toLowerCase());
-    if (filterCriteria === 'upcoming') {
-      return exam.status === 'upcoming' && nameMatch;
-    } else if (filterCriteria === 'submit') {
-      return exam.status === 'submitted' && nameMatch;
-    } else {
-      return exam.status === 'missed' && nameMatch;
-    }
+    const nameMatch = exam.title.toLowerCase().startsWith(searchText.toLowerCase());
+    return (
+      (filterCriteria === 'upcoming' && exam.status === 'upcoming' && nameMatch) ||
+      (filterCriteria === 'submit' && exam.status === 'submitted' && nameMatch) ||
+      (filterCriteria === 'missed' && exam.status === 'missed' && nameMatch)
+    );
   });
 
   return (
     <View style={styles.container}>
       <View style={styles.topSection}>
         <View style={styles.tabs}>
-          <Pressable
-            onPress={() => handleTabPress('upcoming')}
-            style={[
-              styles.tab,
-              filterCriteria === 'upcoming' && styles.activeTab,
-            ]}
-          >
-            <MaterialIcons name="upcoming" size={24} color="black" />
-            <Text>Upcoming</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => handleTabPress('submit')}
-            style={[
-              styles.tab,
-              filterCriteria === 'submit' && styles.activeTab,
-            ]}
-          >
-            <FontAwesome name="send-o" size={22} color="black" />
-            <Text>Submit</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => handleTabPress('missed')}
-            style={[
-              styles.tab,
-              filterCriteria === 'missed' && styles.activeTab,
-            ]}
-          >
-            <MaterialIcons name="call-missed" size={24} color="black" />
-            <Text>Missed</Text>
-          </Pressable>
+          <TabButton onPress={() => handleTabPress('upcoming')} icon="calendar" label="Upcoming" active={filterCriteria === 'upcoming'} />
+          <TabButton onPress={() => handleTabPress('submit')} icon="send-o" label="Submit" active={filterCriteria === 'submit'} />
+          <TabButton onPress={() => handleTabPress('missed')} icon="call-missed" label="Missed" active={filterCriteria === 'missed'} />
         </View>
       </View>
       <View style={styles.lastSection}>
@@ -107,22 +74,36 @@ const index = () => {
   );
 };
 
+const TabButton = ({ onPress, icon, label, active }: { onPress: () => void; icon: string; label: string; active: boolean }) => (
+  <Pressable onPress={onPress} style={[styles.tab, active && styles.activeTab]}>
+    {
+      icon === 'call-missed'
+      ? <MaterialIcons name={icon} size={24} color={active ? 'white' : 'black'} />
+      : <FontAwesome name={icon} size={24} color={active ? 'white' : 'black'} />
+    }
+    <Text style={[styles.textTab, active && styles.activeTextTab]}>{label}</Text>
+  </Pressable>
+);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    paddingBottom: 0,
     paddingTop: 0,
   },
   topSection: {
     paddingTop: 20,
-    textAlign: 'center',
-    paddingBottom: 10,
     marginBottom: 10,
   },
   tabs: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  textTab: {
+    fontWeight: '500',
+  },
+  activeTextTab: {
+    color: 'white',
   },
   search: {
     width: '100%',
@@ -135,23 +116,20 @@ const styles = StyleSheet.create({
   },
   lastSection: {
     flex: 1,
-    paddingBottom: 0,
   },
   second: {
     flex: 1,
     paddingTop: 10,
-    paddingBottom: 0,
   },
   tab: {
-    width: 110,
+    width: '33%',
     height: 50,
     padding: 6,
-    marginHorizontal: 6,
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    gap: 5,
+    gap: 6,
   },
   activeTab: {
     backgroundColor: '#F19A1A',
