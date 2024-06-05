@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     flex: 0.3,
     justifyContent: 'center',
     padding: 20,
-    borderRadius: 5,
     marginBottom: 20,
     backgroundColor: '#F19A1A',
     borderBottomEndRadius: 20,
