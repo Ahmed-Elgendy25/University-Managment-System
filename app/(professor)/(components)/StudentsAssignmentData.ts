@@ -161,6 +161,46 @@ const StudentsAssignmentData: StudentAssignmentProps[] = [
     inTime: true,
     submissionTime: '8:45 AM',
   },
+  {
+    id: 21,
+    name: 'Nada Ali',
+    missed: true,
+    late: false,
+    inTime: false,
+    submissionTime: null,
+  },
+  {
+    id: 22,
+    name: 'Nour Ahmed',
+    missed: false,
+    late: true,
+    inTime: false,
+    submissionTime: '12:00 PM',
+  },
+  {
+    id: 23,
+    name: 'Mai Hassan',
+    missed: false,
+    late: false,
+    inTime: true,
+    submissionTime: '9:00 AM',
+  },
+  {
+    id: 24,
+    name: 'Ahmed Ali',
+    missed: true,
+    late: false,
+    inTime: false,
+    submissionTime: null,
+  },
+  {
+    id: 25,
+    name: 'Ali Ahmed',
+    missed: false,
+    late: true,
+    inTime: false,
+    submissionTime: '11:30 AM',
+  }
 ];
 
 export default StudentsAssignmentData;

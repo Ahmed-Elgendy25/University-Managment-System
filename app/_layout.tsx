@@ -56,10 +56,18 @@ const _layout = () => {
             }}
           />
 
+          {/* <Stack.Screen
+            name="(student)/aaaatttt/aaaatttt"
+            options={{
+              headerTitle: 'aaaatttt',
+              headerStyle: { backgroundColor: '#F19A1A' },
+            }}
+          /> */}
+
           <Stack.Screen
             name="(student)/Attendance/AttendanceDetails/index"
             options={{
-              headerTitle: 'Atttendance Details',
+              headerTitle: 'Attendance Details',
               headerStyle: { backgroundColor: '#F19A1A' },
             }}
           />
@@ -83,6 +91,15 @@ const _layout = () => {
             name="(student)/QuizScreen/index"
             options={{
               headerTitle: 'Exams',
+
+              headerStyle: { backgroundColor: '#F19A1A' },
+            }}
+          />
+          <Stack.Screen
+            name="(student)/ExamScreen/index"
+            options={{
+              headerTitle: 'Exams',
+              headerShown: false,
               headerStyle: { backgroundColor: '#F19A1A' },
             }}
           />
@@ -129,6 +146,32 @@ const _layout = () => {
           />
 
           <Stack.Screen
+            name="(professor)/AssignmentScreen/AsssignmentDetails/AssignmentSubmitDegreeScreen/index"
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: '#F19A1A' },
+            }}
+          />
+
+          <Stack.Screen
+            name="(professor)/Notifications/index"
+            options={{
+              headerTitle: 'Notifications',
+              headerShown: true,
+              headerStyle: { backgroundColor: '#F19A1A' },
+            }}
+          />
+
+          <Stack.Screen
+            name="(student)/Notifications/index"
+            options={{
+              headerTitle: 'Notifications',
+              headerShown: true,
+              headerStyle: { backgroundColor: '#F19A1A' },
+            }}
+          />
+
+          <Stack.Screen
             name="(professor)/Attendance/index"
             options={{
               headerTitle: 'Attendance',
@@ -149,6 +192,24 @@ const _layout = () => {
             name="(professor)/Feedback/index"
             options={{
               headerTitle: 'Feedback',
+              headerShown: true,
+              headerStyle: { backgroundColor: '#F19A1A' },
+            }}
+          />
+
+          <Stack.Screen
+            name="(student)/MessageMembers/index"
+            options={{
+              headerTitle: 'Members',
+              headerShown: true,
+              headerStyle: { backgroundColor: '#F19A1A' },
+            }}
+          />
+
+          <Stack.Screen
+            name="(professor)/MessageMembers/index"
+            options={{
+              headerTitle: 'Members',
               headerShown: true,
               headerStyle: { backgroundColor: '#F19A1A' },
             }}

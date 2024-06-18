@@ -7,7 +7,7 @@ const getCachedLocation = async () => {
     if (cachedData) {
       const parsedData = JSON.parse(cachedData);
       console.log('Cached Location:', parsedData);
-      AsyncStorage.clear();
+      // AsyncStorage.clear();
       return parsedData;
     }
     return null; // Return null if no cached data found

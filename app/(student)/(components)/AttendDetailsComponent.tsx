@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Flex, Heading, Text, VStack } from 'native-base';
 
-import { quizDetails } from './quizDetails';
+import { quizData } from './quizData';
 import {
   Fontisto,
   FontAwesome5,
@@ -14,16 +14,16 @@ import { Alert, Dimensions, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { LatLng } from 'react-native-maps';
 import { useQuery } from '@tanstack/react-query';
-import { getLocation, getLocationTyped } from '@/API/getLocation';
-import cacheLocation from '@/API/cacheLocation';
 import { LocationObject } from './type';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNetInfo } from '@react-native-community/netinfo';
 import moment from 'moment';
+import { getLocation, getLocationTyped } from '../../../API/getLocation';
+import cacheLocation from '../../../API/cacheLocation';
 
 // import useLocation from '@/Hooks/useLocation';
 const MINUTES = 60 * 1000;
-const Details = quizDetails;
+const Details = quizData;
 
 // {
 //   desc: 'Test your knowledge on biology',
@@ -49,6 +49,7 @@ const AttendDetailsComponent = () => {
           longitude,
           timeStamp: moment().valueOf(),
         } as LocationObject);
+
         return location as getLocationTyped;
       },
     }

@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import { EvilIcons, FontAwesome } from '@expo/vector-icons';
 import { Link, useLocalSearchParams, useNavigation } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import StudentModules from '../../(student)/(components)/Mocks/StudentModules';
 
 const index = () => {
   const navigation = useNavigation();
-  const params = useLocalSearchParams<{ courseName: string }>();
-  const { courseName } = params;
+  const params = useLocalSearchParams<{ courseName: string, courseDescription: string, courseInstructor: string }>();
+  const { courseName, courseDescription, courseInstructor } = params;
   useEffect(() => {
     navigation.setOptions({ title: courseName });
   }, [courseName]);
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -20,12 +21,6 @@ const index = () => {
           {/* <Text style={styles.courseName}>Pharma</Text> */}
           {/* Course Description */}
           <View style={styles.description}>
-            {/* <Icon
-            name="file-text-o"
-            size={20}
-            color="#F8E8EE"
-            style={styles.icon}
-          /> */}
             <FontAwesome
               name="file-text-o"
               size={20}
@@ -33,8 +28,7 @@ const index = () => {
               style={styles.icon}
             />
             <Text style={styles.descriptionText}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel,
-              distinctio?
+              {courseDescription}
             </Text>
           </View>
           {/* Administrator Name */}
@@ -46,7 +40,7 @@ const index = () => {
               color="#F8E8EE"
               style={styles.icon}
             />
-            <Text style={styles.adminText}>Mohamed Ali</Text>
+            <Text style={styles.adminText}>{ courseInstructor }</Text>
           </View>
         </View>
 
@@ -64,13 +58,11 @@ export default index;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8E8EE',
   },
   course: {
     flex: 0.3,
     justifyContent: 'center',
     padding: 20,
-    borderRadius: 5,
     marginBottom: 20,
     backgroundColor: '#F19A1A',
     borderBottomEndRadius: 20,
@@ -122,7 +114,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     padding: 20,
-    backgroundColor: '#F8E8EE',
   },
 });
 

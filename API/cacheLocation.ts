@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { LocationObject } from '@/app/(student)/(components)/type';
+import { LocationObject } from '../app/(student)/(components)/type';
 
 const cacheLocation = async (location: LocationObject) => {
   try {

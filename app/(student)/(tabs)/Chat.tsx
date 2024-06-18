@@ -1,18 +1,7 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-  Image,
-  TextInput,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import {
-  GestureHandlerRootView,
-  Swipeable,
-} from 'react-native-gesture-handler';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, TextInput, Alert } from 'react-native';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Link } from 'expo-router';
 
 interface ChatItem {
@@ -29,7 +18,7 @@ const ChatListScreen = () => {
     {
       id: '1',
       name: 'John',
-      lastMessage: 'Hey, how are you?',
+      lastMessage: 'Hey, how are you? I am a student.',
       photo: require('../../../assets/profile_img.jpg'),
       unreadMessages: 2,
     },
@@ -43,79 +32,167 @@ const ChatListScreen = () => {
     {
       id: '3',
       name: 'Bob',
-      lastMessage: 'Can you help me with this?',
+      lastMessage: 'Can you help me with this? I am a student.',
       photo: require('../../../assets/profile_img.jpg'),
       unreadMessages: 5,
     },
     {
       id: '4',
       name: 'Emily',
-      lastMessage: 'I miss you!',
+      lastMessage: 'I miss you! I am a student.',
       photo: require('../../../assets/profile_img.jpg'),
       unreadMessages: 0,
     },
     {
       id: '5',
       name: 'David',
-      lastMessage: "Let's meet up later.",
+      lastMessage: "Let's meet up later . ",
       photo: require('../../../assets/profile_img.jpg'),
       unreadMessages: 1,
     },
+    {
+      id: '6',
+      name: 'Eve',
+      lastMessage: 'I am a student.',
+      photo: require('../../../assets/profile_img.jpg'),
+      unreadMessages: 0,
+    },
+    {
+      id: '7',
+      name: 'Grace',
+      lastMessage: 'I am a student.',
+      photo: require('../../../assets/profile_img.jpg'),
+      unreadMessages: 0,
+    },
+    {
+      id: '8',
+      name: 'Frank',
+      lastMessage: 'I am a student.',
+      photo: require('../../../assets/profile_img.jpg'),
+      unreadMessages: 0,
+    },
+    {
+      id: '9',
+      name: 'Hannah',
+      lastMessage: 'I am a student.',
+      photo: require('../../../assets/profile_img.jpg'),
+      unreadMessages: 0,
+    },
+    {
+      id: '10',
+      name: 'Isaac',
+      lastMessage: 'I am a student.',
+      photo: require('../../../assets/profile_img.jpg'),
+      unreadMessages: 0,
+    },
+    {
+      id: '11',
+      name: 'Jack',
+      lastMessage: 'I am a student.',
+      photo: require('../../../assets/profile_img.jpg'),
+      unreadMessages: 0,
+    },
+    {
+      id: '12',
+      name: 'Katie',
+      lastMessage: 'I am a student.',
+      photo: require('../../../assets/profile_img.jpg'),
+      unreadMessages: 0,
+    },
+    {
+      id: '13',
+      name: 'Liam',
+      lastMessage: 'I am a student.',
+      photo: require('../../../assets/profile_img.jpg'),
+      unreadMessages: 0,
+    },
+    {
+      id: '14',
+      name: 'Mia',
+      lastMessage: 'I am a student.',
+      photo: require('../../../assets/profile_img.jpg'),
+      unreadMessages: 0,
+    },
+    {
+      id: '15',
+      name: 'Nathan',
+      lastMessage: 'I am a student.',
+      photo: require('../../../assets/profile_img.jpg'),
+      unreadMessages: 0,
+    },
+    {
+      id: '16',
+      name: 'Olivia',
+      lastMessage: 'I am a student.',
+      photo: require('../../../assets/profile_img.jpg'),
+      unreadMessages: 0,
+    },
+    {
+      id: '17',
+      name: 'Peter',
+      lastMessage: 'I am a student.',
+      photo: require('../../../assets/profile_img.jpg'),
+      unreadMessages: 0,
+    }
+    // Other chat items...
   ]);
+
 
   const handleSearch = (text: string) => {
     setSearchText(text);
   };
 
   const handleDeleteMessage = (chatId: string) => {
-    setChatData((prevData) => prevData.filter((chat) => chat.id !== chatId));
+    Alert.alert(
+      'Delete Message',
+      'Are you sure you want to delete this message?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: () => {
+            const updatedChatData = chatData.filter((chat) => chat.id !== chatId);
+            setChatData(updatedChatData);
+          },
+        },
+      ],
+      { cancelable: true }
+    );
   };
 
   const renderChatItem = ({ item }: { item: ChatItem }) => (
-    <Swipeable renderRightActions={() => renderRightActions(item.id)}>
-      <TouchableOpacity style={styles.chatItem}>
-        <Link
-          style={{ width: '100%', height: '100%' }}
-          push
-          href={{
-            pathname: '/MessageScreen/',
-            params: { user: item.name },
-          }}
-        >
-          {/* <Image source={item.photo} style={styles.userPhoto} /> */}
-          <Image source={item.photo} style={styles.userPhoto} alt={item.name} />
-          <View style={styles.chatText}>
-            <Text style={styles.chatName}>{item.name}</Text>
-            <Text style={styles.lastMessage}>{item.lastMessage}</Text>
-          </View>
-          {item.unreadMessages > 0 && (
-            <View style={styles.unreadMessagesContainer}>
-              <Text style={styles.unreadMessages}>{item.unreadMessages}</Text>
+    <View style={styles.link}>
+      <TouchableOpacity
+        onLongPress={handleDeleteMessage.bind(null, item.id)}
+        style={styles.chatItem}
+      >
+        <Link push href={{ pathname: '/MessageScreen/', params: { user: item.name } }} style={styles.link}>
+          <View style={styles.chatItem2}>
+            <Image source={item.photo} style={styles.userPhoto} alt={item.name} />
+            <View style={styles.chatText}>
+              <Text style={styles.chatName}>{item.name}</Text>
+              <Text numberOfLines={1} ellipsizeMode="tail" style={styles.lastMessage}>
+                {item.lastMessage.substring(0, 40).padEnd(40, '')}
+              </Text>
             </View>
-          )}
+          </View>
         </Link>
       </TouchableOpacity>
-    </Swipeable>
-  );
-
-  const renderRightActions = (chatId: string) => (
-    <TouchableOpacity
-      style={styles.deleteButton}
-      onPress={() => handleDeleteMessage(chatId)}
-    >
-      <Ionicons name="trash" size={24} color="white" />
-    </TouchableOpacity>
+    </View>
   );
 
   const renderChatList = () => {
-    const dataToRender = chatData.filter((chat) =>
-      chat.name.toLowerCase().includes(searchText.toLowerCase())
-    );
+    const dataToRender = chatData.filter((chat) => chat.name.toLowerCase().includes(searchText.toLowerCase()));
     return (
       <FlatList
         data={dataToRender}
         renderItem={renderChatItem}
         keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.chatListContent}
       />
     );
   };
@@ -131,7 +208,12 @@ const ChatListScreen = () => {
         />
         <Ionicons name="search" size={30} color="#F19A1A" />
       </View>
-      {renderChatList()}
+      <View style={styles.chats}>{renderChatList()}</View>
+      <View style={styles.chatButton} >
+        <Link push href="(student)/MessageMembers">
+          <AntDesign name="pluscircleo" color="#F19A1A" size={44} />
+        </Link>
+      </View>
     </GestureHandlerRootView>
   );
 };
@@ -141,6 +223,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
     padding: 10,
+    paddingBottom: 0,
   },
   searchContainer: {
     flexDirection: 'row',
@@ -158,14 +241,25 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     marginRight: 10,
   },
-
+  chats: {
+    flex: 1,
+    position: 'relative', // Make the container relative for positioning the chat button
+  },
   chatItem: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 15,
+    padding: 0,
     borderBottomWidth: 1,
     borderBottomColor: '#cccccc',
+    width: '100%',
+  },
+  chatItem2: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 15,
+    width: '100%',
   },
   userPhoto: {
     width: 50,
@@ -184,23 +278,27 @@ const styles = StyleSheet.create({
   lastMessage: {
     fontSize: 16,
     color: '#666666',
+    width: '70%', // Adjust width as needed
   },
-  unreadMessagesContainer: {
-    backgroundColor: 'red',
-    borderRadius: 15,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+  chatListContent: {
+    flexGrow: 1,
   },
-  unreadMessages: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: 'bold',
+  link: {
+    width: '100%', // Adjust width as needed
   },
-  deleteButton: {
-    backgroundColor: 'red',
-    justifyContent: 'center',
+  swipeable: {
+    width: '100%', // Adjust width as needed
+  },
+  chatButton: {
+    position: 'absolute',
+    bottom: 30,
+    right: 30, // Adjust right position as needed
+    backgroundColor: 'rgba(1, 1, 1, 0)', // Set opacity to 0.8
+    width: 50,
+    height: 50,
+    borderRadius: 25,
     alignItems: 'center',
-    width: 75,
+    justifyContent: 'center',
   },
 });
 

@@ -60,13 +60,13 @@ const AsssignmentDetails = () => {
               filterCriteria === 'inTime' && styles.activeTab,
             ]}
           >
-            <Text>In Time</Text>
+            <Text style={[styles.text, filterCriteria === 'inTime' && {color:'white'}]}>In Time</Text>
           </Pressable>
           <Pressable
             onPress={() => handleTabPress('late')}
             style={[styles.tab, filterCriteria === 'late' && styles.activeTab]}
           >
-            <Text>Late</Text>
+            <Text style={[styles.text, filterCriteria === 'late' && {color:'white'}]}>Late</Text>
           </Pressable>
           <Pressable
             onPress={() => handleTabPress('missed')}
@@ -75,7 +75,7 @@ const AsssignmentDetails = () => {
               filterCriteria === 'missed' && styles.activeTab,
             ]}
           >
-            <Text>Missed</Text>
+            <Text style={[styles.text, filterCriteria === 'missed' && {color:'white'}]}>Missed</Text>
           </Pressable>
         </View>
         <TextInput
@@ -101,18 +101,21 @@ const AsssignmentDetails = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    paddingBottom: 0,
+    paddingHorizontal: 20,
   },
   topSection: {
-    paddingTop: 20,
-    paddingBottom: 10,
+    // paddingBottom: 10,
+    marginTop: 20,
     marginBottom: 10,
   },
   taps: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginBottom: 20,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '400',
   },
   search: {
     width: '100%',
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
-    marginBottom: 10,
+    marginBottom: 0,
     borderColor: '#F19A1A',
   },
   lastSection: {

@@ -1,89 +1,101 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Box, VStack } from 'native-base';
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Subject from '../(components)/Subject';
-import { Button } from 'react-native-paper';
-import NetInfo from '@react-native-community/netinfo';
+import { Link } from 'expo-router';
+import CoursesData from '../(components)/CoursesData';
+import NetInfo, { useNetInfo } from '@react-native-community/netinfo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LocationObject } from '../(components)/type';
 
-import getCachedLocation from '@/API/getCachedLocation';
+const getColor = (id: number) => {
+  // Define your logic to return a color based on the course ID
+  // For demonstration purposes, I'm simply returning a color based on the ID
+  const colors = [
+    '#FFB976',
+    '#00CFE8',
+    '#28C76F',
+    '#FFB976',
+    '#00CFE8',
+    '#28C76F',
+  ];
+  return colors[(id - 1) % colors.length];
+};
 
+let courses = CoursesData;
 const Home = () => {
-  let [isDisabled, setIsDisabled] = useState<boolean>(true);
-  let [isConnected, setIsConnected] = useState<boolean | null>(null);
-  const [cachedLocation, setCachedLocation] = useState(null);
+  const netinfo = useNetInfo();
+  const [isConnected, setIsConnected] = useState<boolean | null>(null);
+  const [cached, setCached] = useState<LocationObject | null>(null);
 
-  useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state) => {
-      setIsConnected(state.isConnected);
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      // Offline - Retrieve cached data
-      if (isConnected) {
-        const cachedLocationData = await getCachedLocation();
-        setCachedLocation(cachedLocationData);
+  const checkCachedLocation = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('location');
+      if (jsonValue != null) {
+        const parsedValue: LocationObject = JSON.parse(jsonValue);
+        // console.log('Parsed Value:', parsedValue); // Log parsed value to inspect the structure
+        // AsyncStorage.clear();
+        setCached(parsedValue);
       }
-    };
+    } catch (err) {
+      Alert.alert(`Error, Can't get the cached location: `, String(err));
+    }
+  };
 
-    fetchData();
+  useEffect(() => {
+    const interval = setInterval(() => {
+      NetInfo.fetch().then((state) => {
+        if (isConnected === true && state.isConnected === true) {
+          // console.log('Previous state isConnected:', isConnected);
+          // console.log('Current state isConnected:', state.isConnected);
+          checkCachedLocation();
+        }
+        setIsConnected(state.isConnected);
+      });
+    }, 3000);
+
+    return () => clearInterval(interval);
   }, [isConnected]);
-
   return (
     <View style={styles.container}>
       <View style={styles.topSection}>
         <View>
-          <Text>Welcome back</Text>
-          <Text
-            style={{
-              fontWeight: '700',
-              padding: 3,
-              fontSize: 20,
-              color: 'white',
-            }}
-          >
-            Mohamed
-          </Text>
+          <Text style={styles.welcomeText}>Welcome back</Text>
+          <Text style={styles.userName}>Mohamed Ali</Text>
+          {cached == null ? (
+            <Text style={{ color: 'black' }}>Yalahwiiiii</Text>
+          ) : (
+            <Text style={{ marginHorizontal: 5 }}>
+              {cached?.latitude} {cached?.longitude} {cached?.timeStamp}
+            </Text>
+          )}
         </View>
-        <Pressable>
-          <AntDesign name="bells" size={25} color="white" />
-        </Pressable>
+        {/* <Link href={{ pathname: '/(student)/aaaatttt/aaaatttt' }} asChild> */}
+        <Link href={{ pathname: '(student)/Notifications/' }} asChild>
+          <Pressable>
+            <AntDesign name="bells" size={25} color="white" />
+          </Pressable>
+        </Link>
       </View>
-      {/* <Box my={3}>
-        <Button
-          disabled={isDisabled}
-          buttonColor={'#f72d2d'}
-          textColor="white"
-          mode="elevated"
-          // onPress={handleErgentAttend}
-        >
-          Ergent Attend
-        </Button>
-      </Box> */}
 
       <View style={styles.middleSection}>
         <ScrollView>
-          <VStack space={0} alignItems="center">
-            <Subject color={'#FFB976'} courseName="Course 1" />
-            <Subject color={'#00CFE8'} courseName="Course 2" />
-            <Subject color={'#28C76F'} courseName="Course 3" />
-            <Subject color={'#FFB976'} courseName="Course 4" />
-            <Subject color={'#FFB976'} courseName="Course 1" />
-            <Subject color={'#00CFE8'} courseName="Course 5" />
-            <Subject color={'#28C76F'} courseName="Course 6" />
-            <Subject color={'#FFB976'} courseName="Course 7" />
-            <Subject color={'#00CFE8'} courseName="Course 8" />
-            <Subject color={'#28C76F'} courseName="Course 9" />
-            <Subject color={'#FFB976'} courseName="Course 10" />
-            <Subject color={'#00CFE8'} courseName="Course 11" />
-            <Subject color={'#28C76F'} courseName="Course 12" />
-          </VStack>
+          <View style={styles.subjectContainer}>
+            {courses.map((course) => (
+              <Subject
+                key={course.id}
+                color={getColor(course.id)}
+                course={course}
+              />
+            ))}
+          </View>
         </ScrollView>
       </View>
     </View>
@@ -105,11 +117,24 @@ const styles = StyleSheet.create({
   },
   middleSection: {
     flex: 1,
-    width: '100%',
     backgroundColor: 'white',
-    borderTopLeftRadius: 35,
-    borderTopRightRadius: 35,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
     paddingTop: 20,
+  },
+  welcomeText: {
+    color: 'white',
+    fontWeight: '500',
+  },
+  userName: {
+    fontWeight: '700',
+    paddingVertical: 3,
+    fontSize: 20,
+    color: 'white',
+  },
+  subjectContainer: {
+    alignItems: 'center',
+    marginHorizontal: 20,
   },
 });
 

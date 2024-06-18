@@ -7,50 +7,82 @@ import {
   StudentExamProps,
   StudentExamProps_And_StudentAssignmentProps,
 } from './professor-types';
+import { Link } from 'expo-router';
+import { replace } from 'formik';
 const StudentComponent = ({
   student,
 }: {
   student: StudentExamProps_And_StudentAssignmentProps;
 }) => {
+
   const handlePress = () => {
-    //student.submissionTime&&navigation.navigate('AssignmentSubmit', { assignment: assignment });
-    //student.score&&navigation.navigate('AssignmentDetails', { assignment: assignment });
+    // Link to StudentDetailsScreen
   };
 
-  return (
-    <Pressable onPress={handlePress}>
-      <Center
-        h={60}
-        bg="#F6F6F6"
-        rounded="xl"
-        shadow={0}
-        style={styles.container}
-      >
-        <View style={styles.icon}>
-          <AntDesign name="user" color="#F19A1A" size={35} />
-        </View>
-        <View style={styles.content}>
-          <View style={styles.textContainer}>
-            <Text style={styles.assignmentNumber}>{student.name}</Text>
+  return (<>
+  {student.submissionTime ? (
+    <Link
+    href={{
+      pathname: `(professor)/AssignmentScreen/AsssignmentDetails/AssignmentSubmitDegreeScreen/`,
+      params: { studentName: student.name },
+    }}
+
+    asChild
+    >
+      <Pressable onPress={handlePress}>
+        <Center
+          h={60}
+          bg="#F6F6F6"
+          rounded="xl"
+          shadow={0}
+          style={styles.container}
+        >
+          <View style={styles.icon}>
+            <AntDesign name="user" color="#F19A1A" size={35} />
           </View>
-          {student.submissionTime && (
-            <View style={styles.daysLeftContainer}>
-              <Text style={[styles.daysLeft, { backgroundColor: '#F19A1A' }]}>
-                {student.submissionTime}
-              </Text>
+          <View style={styles.content}>
+            <View style={styles.textContainer}>
+              <Text style={styles.assignmentNumber}>{student.name}</Text>
             </View>
-          )}
-          {student.score && (
-            <View style={styles.daysLeftContainer}>
-              <Text style={[styles.daysLeft, { backgroundColor: '#F19A1A' }]}>
-                {student.score}
-              </Text>
-            </View>
-          )}
+            {student.submissionTime && (
+              <View style={styles.daysLeftContainer}>
+                <Text style={[styles.daysLeft, { backgroundColor: '#F19A1A' }]}>
+                  {student.submissionTime}
+                </Text>
+              </View>
+            )}
+          </View>
+        </Center>
+      </Pressable>
+    </Link>
+  ):(<>
+    <Center
+      h={60}
+      bg="#F6F6F6"
+      rounded="xl"
+      shadow={0}
+      style={styles.container}
+    >
+      <View style={styles.icon}>
+        <AntDesign name="user" color="#F19A1A" size={35} />
+      </View>
+      <View style={styles.content}>
+        <View style={styles.textContainer}>
+          <Text style={styles.assignmentNumber}>{student.name}</Text>
         </View>
-      </Center>
-    </Pressable>
-  );
+        {student.score && (
+          <View style={styles.daysLeftContainer}>
+            <Text style={[styles.daysLeft, { backgroundColor: '#F19A1A' }]}>
+              {student.score}
+            </Text>
+          </View>
+        )}
+      </View>
+    </Center>
+  </>)
+}
+
+  </>);
 };
 
 const styles = StyleSheet.create({

@@ -4,12 +4,6 @@ export type DataModulesTyped = {
   href: string;
 };
 
-export type QuizzesListTyped = {
-  name: string;
-  startDate: string;
-  startTime: string;
-  quizGrade: number;
-};
 type QuestionType = 'multiple-choice' | 'true-false';
 
 export type QuestionsMcqTyped = {
@@ -29,19 +23,27 @@ export type QuestionsMcqTyped = {
   };
 };
 
-export type quizDetailsTyped = {
-  desc?: string | null;
-  startDate: string;
-  endDate: string;
-  instructorName: string;
-  totalDuration: number;
-  totalScore: number;
-  totalQuestions: number;
-};
-export type LocationObject = {
-  latitude: number | null;
-  longitude: number | null;
-  timeStamp: number;
+export type quizDataTyped = {
+  id: number;
+  title: string;
+  date: string;
+  details: {
+    quizId: number;
+    studentId: number;
+    moduleId: number;
+    enroll: boolean;
+    startTime: string;
+    endTime: string;
+    instructorName: string;
+    totalDuration: number;
+    totalScore: number;
+    submission: {
+      finalGrade: number;
+      takenTime: number;
+      status: string;
+      submitAt: string;
+    };
+  };
 };
 
 export interface QuestionTyped {
@@ -53,3 +55,33 @@ export interface QuestionTyped {
     values: { id: string; text: string; isCorrect: boolean }[];
   };
 }
+export type ExamsTyped = {
+  id: number;
+  title: string;
+  Time: string;
+  startTime: string;
+  duration: string;
+  status: string;
+  isActive: boolean;
+};
+
+export type SessionsTyped = {
+  id: number;
+  title: string;
+  Time: string;
+  duration: string;
+  status: string;
+};
+
+export interface Course {
+  id: number;
+  title: string;
+  instructor: string;
+  description: string;
+}
+
+export type LocationObject = {
+  latitude: number | null;
+  longitude: number | null;
+  timeStamp: number;
+};

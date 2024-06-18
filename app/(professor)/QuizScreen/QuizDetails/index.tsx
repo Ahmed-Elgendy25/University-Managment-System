@@ -59,7 +59,7 @@ const index = () => {
               filterCriteria === 'passed' && styles.activeTab,
             ]}
           >
-            <Text>Passed</Text>
+            <Text style={[styles.text, filterCriteria === 'passed' && {color:'white'}]}>Passed</Text>
           </Pressable>
           <Pressable
             onPress={() => handleTabPress('notPassed')}
@@ -68,7 +68,7 @@ const index = () => {
               filterCriteria === 'notPassed' && styles.activeTab,
             ]}
           >
-            <Text>Not Passed</Text>
+            <Text style={[styles.text, filterCriteria === 'notPassed' && {color:'white'}]}>Not Passed</Text>
           </Pressable>
           <Pressable
             onPress={() => handleTabPress('missed')}
@@ -77,7 +77,7 @@ const index = () => {
               filterCriteria === 'missed' && styles.activeTab,
             ]}
           >
-            <Text>Missed</Text>
+            <Text style={[styles.text, filterCriteria === 'missed' && {color:'white'}]}>Missed</Text>
           </Pressable>
         </View>
       </View>
@@ -118,6 +118,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  text: {
+    fontSize: 16,
+    fontWeight: '400',
+  },
   search: {
     width: '100%',
     height: 40,
@@ -137,7 +141,7 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
   tab: {
-    width: 90,
+    width: 100,
     height: 50,
     padding: 6,
     marginHorizontal: 6,

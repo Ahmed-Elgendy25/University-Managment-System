@@ -3,52 +3,56 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Center } from 'native-base';
 import { FontAwesome } from '@expo/vector-icons';
 import { Link } from 'expo-router';
+
 interface ItemProps {
   color: string;
-  courseName: string;
+  course: Course;
 }
 
-const Subject = ({ color, courseName }: PropsWithChildren<ItemProps>) => {
+interface Course {
+  id: number;
+  title: string;
+  instructor: string;
+  description: string;
+}
+
+const Subject = ({ color, course }: PropsWithChildren<ItemProps>) => {
   const onPressHandler = () => {
     console.log('Pressed');
   };
 
   return (
-    <Pressable onPress={onPressHandler}>
-      <Link
-        push
-        href={{
-          pathname: '/(professor)/subjectDetails/',
-          params: { courseName: courseName },
-        }}
-      >
+    <Link
+      push
+      href={{
+        pathname: '/(professor)/subjectDetails/',
+        params: { courseName: course.title },
+      }}
+      asChild
+    >
+      <Pressable onPress={onPressHandler}>
         <Center
           w="100%"
           h="100"
-          bg="#F6F6F6"
+          bg="#fefefe"
           rounded="xl"
           shadow={0}
           style={styles.container}
+          marginBottom={10}
         >
           <View style={[styles.icon, { backgroundColor: color }]}>
             <FontAwesome name="graduation-cap" size={35} color="black" />
           </View>
-          <View>
-            <View>
-              <Text style={{ fontWeight: 'bold' }}>{courseName}</Text>
-              <Text style={{ color: 'gray' }}>
-                Description: All can be perfect in math...
-              </Text>
-            </View>
-            <View>
-              <Text style={{ color: 'gray', marginTop: 10 }}>
-                By Sarah William
-              </Text>
-            </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.title}>{course.title}</Text>
+            <Text numberOfLines={1} style={styles.description}>
+              Description: {course.description}
+            </Text>
+            <Text style={styles.author}>{course.instructor}</Text>
           </View>
         </Center>
-      </Link>
-    </Pressable>
+      </Pressable>
+    </Link>
   );
 };
 
@@ -67,6 +71,20 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  textContainer: {
+    flex: 1,
+  },
+  title: {
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  description: {
+    color: 'gray',
+  },
+  author: {
+    color: 'gray',
+    marginTop: 10,
   },
 });
 

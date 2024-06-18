@@ -54,13 +54,11 @@ export default index;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8E8EE',
   },
   course: {
     flex: 0.3,
     justifyContent: 'center',
     padding: 20,
-    borderRadius: 5,
     marginBottom: 20,
     backgroundColor: '#F19A1A',
     borderBottomEndRadius: 20,
@@ -113,7 +111,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     padding: 20,
-    backgroundColor: '#F8E8EE',
   },
 });
 

@@ -10,6 +10,7 @@ import {
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
+import { router } from 'expo-router';
 const ProfileScreen: React.FC = () => {
   const defaultImage = require('../../../assets/profile_img.jpg');
   const [profilePhoto, setProfilePhoto] = useState<any>(defaultImage);
@@ -54,8 +55,8 @@ const ProfileScreen: React.FC = () => {
             </View>
           </View>
         </TouchableOpacity>
-        <Text style={styles.userName}>Mohamed</Text>
-        <Text style={styles.email}>example@gmail.com</Text>
+        <Text style={styles.userName}>Mohamed Ali</Text>
+        <Text style={styles.email}>id@o6u.edu.eg</Text>
       </View>
 
       <View style={styles.settingsSection}>
@@ -78,7 +79,10 @@ const ProfileScreen: React.FC = () => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+      <TouchableOpacity
+        style={styles.logoutButton}
+        onPress={() => router.replace('/')}
+      >
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>
     </View>
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
   profileSection: {
     flex: 0.4,
     marginTop: 40,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   profilePhotoContainer: {
     position: 'relative',
@@ -128,13 +132,11 @@ const styles = StyleSheet.create({
     flex: 0.23,
     width: '100%',
     marginBottom: 20,
-    marginTop: 15,
   },
   supportSection: {
     flex: 0.23,
     width: '100%',
     marginBottom: 20,
-    paddingTop: 25,
   },
   sectionHeader: {
     fontSize: 18,
@@ -160,4 +162,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
 export default ProfileScreen;

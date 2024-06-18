@@ -7,26 +7,27 @@ interface AssignmentData {
   id: number;
   title: string;
   finished: boolean;
+  details: string;
+  instructor: string;
+  deadline: string;
 }
 
 const AssignmentsScreen: React.FC = () => {
-  const [isClickedFirst, setIsClickedFirst] = useState(false);
-  const [isClickedSecond, setIsClickedSecond] = useState(true);
-  const [showFinished, setShowFinished] = useState(true);
+  const [isClickedFirst, setIsClickedFirst] = useState(true);
+  const [isClickedSecond, setIsClickedSecond] = useState(false);
+  const [showFinished, setShowFinished] = useState(false);
 
   const onPressHandler = () => {
     console.log('pressed');
   };
 
   const onFinished = () => {
-    console.log('pressed');
     setIsClickedSecond(true);
     setIsClickedFirst(false);
     setShowFinished(true);
   };
 
   const onUnfinished = () => {
-    console.log('pressed');
     setIsClickedFirst(true);
     setIsClickedSecond(false);
     setShowFinished(false);
@@ -34,28 +35,29 @@ const AssignmentsScreen: React.FC = () => {
 
   // Sample assignments data
   const assignments: AssignmentData[] = [
-    { id: 1, title: 'Assignment 1', finished: true },
-    { id: 2, title: 'Assignment 2', finished: false },
-    { id: 3, title: 'Assignment 3', finished: true },
-    { id: 4, title: 'Assignment 4', finished: false },
-    { id: 5, title: 'Assignment 5', finished: true },
-    { id: 6, title: 'Assignment 6', finished: false },
-    { id: 7, title: 'Assignment 7', finished: true },
-    { id: 8, title: 'Assignment 8', finished: false },
-    { id: 9, title: 'Assignment 9', finished: true },
-    { id: 10, title: 'Assignment 10', finished: false },
-    { id: 11, title: 'Assignment 11', finished: true },
-    { id: 12, title: 'Assignment 12', finished: false },
-    { id: 13, title: 'Assignment 13', finished: true },
-    { id: 14, title: 'Assignment 14', finished: false },
-    { id: 15, title: 'Assignment 15', finished: true },
-    { id: 16, title: 'Assignment 16', finished: false },
-    { id: 17, title: 'Assignment 17', finished: true },
-    { id: 18, title: 'Assignment 18', finished: false },
-    { id: 19, title: 'Assignment 19', finished: true },
-    { id: 20, title: 'Assignment 20', finished: false },
+    { id: 1, title: 'Math Homework', finished: true, details: 'Complete exercises 1-10 from chapter 5', instructor: 'Dr. Johnson', deadline: '2024-06-10' },
+    { id: 2, title: 'History Essay', finished: false, details: 'Write a 3-page essay on the causes of World War II', instructor: 'Prof. Smith', deadline: '2024-06-15' },
+    { id: 3, title: 'Physics Lab Report', finished: true, details: 'Submit lab report for experiment #4', instructor: 'Dr. Williams', deadline: '2024-06-12' },
+    { id: 4, title: 'Literature Analysis', finished: false, details: 'Analyze the themes in "To Kill a Mockingbird"', instructor: 'Prof. Brown', deadline: '2024-06-18' },
+    { id: 5, title: 'Computer Science Project', finished: true, details: 'Complete coding project and submit documentation', instructor: 'Dr. Davis', deadline: '2024-06-11' },
+    { id: 6, title: 'Chemistry Quiz', finished: false, details: 'Study chapters 6-8 for upcoming quiz', instructor: 'Prof. Martinez', deadline: '2024-06-14' },
+    { id: 7, title: 'Art Presentation', finished: true, details: 'Prepare slides for art history presentation', instructor: 'Dr. Garcia', deadline: '2024-06-13' },
+    { id: 8, title: 'Music Composition', finished: false, details: 'Compose a short piece for the piano', instructor: 'Dr. Lee', deadline: '2024-06-17' },
+    { id: 9, title: 'Philosophy Paper', finished: true, details: 'Write a reflection paper on existentialism', instructor: 'Prof. Thompson', deadline: '2024-06-09' },
+    { id: 10, title: 'Environmental Science Research', finished: false, details: 'Gather data for research project on climate change', instructor: 'Dr. Wilson', deadline: '2024-06-16' },
+    { id: 11, title: 'Sociology Presentation', finished: true, details: 'Prepare presentation on social inequality', instructor: 'Prof. Adams', deadline: '2024-06-08' },
+    { id: 12, title: 'Creative Writing Exercise', finished: false, details: 'Write a short story inspired by a personal experience', instructor: 'Dr. Moore', deadline: '2024-06-20' },
+    { id: 13, title: 'Business Management Case Study', finished: true, details: 'Analyze case study on organizational behavior', instructor: 'Prof. Roberts', deadline: '2024-06-07' },
+    { id: 14, title: 'Linguistics Presentation', finished: false, details: 'Prepare slides for phonetics presentation', instructor: 'Dr. Clark', deadline: '2024-06-19' },
+    { id: 15, title: 'Fitness Assessment', finished: true, details: 'Complete fitness assessment and submit results', instructor: 'Coach Johnson', deadline: '2024-06-06' },
+    { id: 16, title: 'Political Science Essay', finished: false, details: 'Write an essay on the role of media in politics', instructor: 'Prof. Taylor', deadline: '2024-06-21' },
+    { id: 17, title: 'Astronomy Observation Journal', finished: true, details: 'Record observations of celestial objects', instructor: 'Dr. Turner', deadline: '2024-06-05' },
+    { id: 18, title: 'Film Analysis', finished: false, details: 'Analyze a film of your choice using film theory concepts', instructor: 'Prof. Anderson', deadline: '2024-06-22' },
+    { id: 19, title: 'Nutrition Research Paper', finished: true, details: 'Write a research paper on the benefits of a balanced diet', instructor: 'Dr. White', deadline: '2024-06-04' },
+    { id: 20, title: 'Anthropology Fieldwork Report', finished: false, details: 'Conduct fieldwork and write a report on a cultural community', instructor: 'Prof. Carter', deadline: '2024-06-23' },
     // Add more assignments here
   ];
+
 
   // Filter assignments based on the showFinished state
   const filteredAssignments = showFinished
@@ -70,13 +72,13 @@ const AssignmentsScreen: React.FC = () => {
             onPress={onUnfinished}
             style={[styles.bottom, isClickedFirst && styles.clicked]}
           >
-            <Text>Unfinished</Text>
+            <Text style={[styles.text, isClickedFirst ? { color: 'white' } : null]}>Unfinished</Text>
           </Pressable>
           <Pressable
             onPress={onFinished}
             style={[styles.bottom, isClickedSecond && styles.clicked]}
           >
-            <Text>Finished</Text>
+            <Text style={[styles.text, isClickedSecond ? { color: 'white' } : null]}>Finished</Text>
           </Pressable>
         </View>
         <View style={styles.second}>
@@ -98,11 +100,17 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     paddingBottom: 0,
+    paddingTop: 0,
   },
   topSection: {
     flex: 0.1,
     paddingTop: 20,
     textAlign: 'center',
+  },
+  text:{
+    fontSize: 18,
+    fontWeight: '400',
+    padding: 0,
   },
   icon: {
     borderWidth: 2,
@@ -126,13 +134,11 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
   bottom: {
-    width: 90,
+    width: 130,
     padding: 2,
-    margin: 6,
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    // borderWidth: 1,
   },
   clicked: {
     backgroundColor: '#F19A1A',
