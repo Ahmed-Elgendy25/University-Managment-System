@@ -83,7 +83,8 @@ This README provides an overview of the key features and functionalities of our 
 ## Home
 
 <img src="https://github.com/Ahmed-Elgendy25/graduation-project/assets/108876019/357048ae-e65f-434b-a592-be1d3e0ac947" alt="Home" width="300">
-After Fetching Cached Attendance with timestamp.
+<p>After Fetching Cached Attendance with timestamp.
+</p>
 <img src="https://github.com/Ahmed-Elgendy25/graduation-project/assets/108876019/3131672c-97ba-4be5-aa31-54dca355542d" alt="Home after getting cached attendance with timestamp" width="300" >
 
 ## Chat
