@@ -111,6 +111,10 @@ This README provides an overview of the key features and functionalities of our 
 
 ## Student
 
+
+# Subject Details
+<img src="https://github.com/Ahmed-Elgendy25/graduation-project/assets/108876019/c2eeee4b-782c-4baa-a819-f268ef0630a6" alt="Subject-Details" width="300">
+
 # Assignments Module
 <img src="https://github.com/Ahmed-Elgendy25/graduation-project/assets/108876019/58e5955f-5d43-41af-844b-e36df4599f26" alt="Assignment-downloading-material" width="300">
 <img src="https://github.com/Ahmed-Elgendy25/graduation-project/assets/108876019/d3e2b78f-8a92-4713-b424-33a8971446f0" alt="Assignment-uploading-material1" width="300">
