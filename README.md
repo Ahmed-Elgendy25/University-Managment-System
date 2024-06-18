@@ -1,4 +1,4 @@
-# Welcome to your Expo app 👋
+# Welcome to your Academia Sync App 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
@@ -16,35 +16,53 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
     npx expo start
    ```
 
-In the output, you'll find options to open the app in a
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+# Academic Management Platform
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 1. Introduction
 
-## Get a fresh project
+### 1.1 Background and Motivation
 
-When you're ready, run:
+As a student, I have personally experienced the challenges of managing my academic life effectively. Keeping track of student attendance, assignments, exams, and extracurricular activities can be overwhelming, making it difficult to stay organized and on top of everything. Additionally, I have witnessed the challenges faced by educators in tracking attendance and communicating with students. 
 
-```bash
-npm run reset-project
-```
+Our motivation for developing this platform stems from a desire to address these challenges and provide a comprehensive solution that benefits both students and educators. We believe that technology can play a transformative role in enhancing the teaching and learning experience. We are passionate about creating innovative solutions that empower students and educators to succeed.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 1.2 Problem Statement
 
-## Learn more
+We address the following key problems:
+- **Student Management**: Students struggle to manage their assignments and exams effectively, leading to stress and reduced productivity.
+- **Communication**: Communication between students and instructors, as well as among peers, is often fragmented and inefficient, hindering collaboration and learning.
+- **Attendance Tracking**: Traditional attendance tracking methods are often manual and error-prone, leading to inaccurate records and administrative inefficiencies.
+- **Centralized Platform**: Students and educators lack a centralized platform to access and share academic resources, feedback, and other relevant information.
 
-To learn more about developing your project with Expo, look at the following resources:
+### 1.3 Project Objectives and Solutions
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+The primary objectives of our platform are to:
+- **User-Friendly Interface**: Provide a user-friendly platform for students to manage their assignments, exams, and extracurricular activities.
+- **Effective Communication**: Facilitate effective communication between students and instructors, as well as among peers, through in-app messaging and discussion forums.
+- **Reliable Attendance Tracking**: Implement accurate and reliable attendance tracking using advanced technologies such as Geo-Fencing.
+- **Centralized Repository**: Create a central repository for academic resources, feedback, and other relevant information, accessible to both students and educators.
 
-## Join the community
+## 2. Features
 
-Join our community of developers creating universal apps.
+### 2.1 Features for Students
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+We offer a range of features tailored to the needs of students, including:
+- **Assignment and Exam Tracking**: Students can access assignments and exams, and track their progress.
+- **Resource Access**: Students can access course materials and other academic resources.
+- **Communication Tools**: Students can communicate with instructors and peers through in-app messaging and participate in discussion forums for each course.
+- **Attendance Tracking**: Students can mark their attendance using Geo-Fencing or manual entry and receive alerts regarding their attendance status.
+- **Gradebook Integration**: Students can view their grades and track their academic progress over time.
+- **Feedback and Voting**: Students can share insights about their learning experiences.
+
+### 2.2 Features for Professors
+
+We also provide a range of features for professors, including:
+- **Communication Tools**: Professors can send automated reminders for classes, exams, and assignments, send push notifications for important announcements, and communicate with students through in-app messaging.
+- **Attendance Tracking**: Professors can monitor and record attendance for each class session, and view attendance reports for individual students or the entire class.
+- **Gradebook Integration**: Professors can integrate their gradebook with the app to provide students with a consolidated view of their grades and academic progress.
+- **Feedback and Voting**: Professors can collect feedback from students to enhance course materials and teaching methods, and conduct polls or surveys within the app.
+- **Manage Resources**: Professors can upload materials, assignments, and other resources.
+- **Exam Management**: Professors can create exams manually or automatically based on our algorithm, assign exams to specific groups, or let the algorithm auto-assign them.
+
+This README provides an overview of the key features and functionalities of our Academic Management Platform, designed to enhance the educational experience for both students and professors.
